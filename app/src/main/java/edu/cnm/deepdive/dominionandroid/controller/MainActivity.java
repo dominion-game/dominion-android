@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.dominionandroid;
+package edu.cnm.deepdive.dominionandroid.controller;
 
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import edu.cnm.deepdive.dominionandroid.R;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
