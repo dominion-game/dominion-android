@@ -11,28 +11,26 @@
     <!-- TODO: Add in Action/Buy/Money counters -->
 
     <Button
-        android:id="@+id/hand"
-
+        android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="@drawable/buttonshape"
         android:fontFamily="monospace"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-        android:text="Hand"
+        android:text="Money"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/end_action"
+        app:layout_constraintBottom_toTopOf="@id/victory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
 
-        android:id="@+id/end_action"
+        android:id="@+id/victory"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,11 +43,29 @@
         android:shadowRadius="5"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:text="End Action"
-        app:layout_constraintBottom_toTopOf="@id/end_turn"
+        android:text="Victory"
+        app:layout_constraintBottom_toTopOf="@id/action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hand" />
+        app:layout_constraintTop_toBottomOf="@+id/money" />
+
+    <Button
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="monospace"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:text="Action"
+        app:layout_constraintBottom_toTopOf="@+id/end_turn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/victory" />
 
     <Button
         android:id="@+id/end_turn"
@@ -67,7 +83,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/end_action" />
+        app:layout_constraintTop_toBottomOf="@+id/action" />
+
 
     <TextView
         android:id="@+id/actions"
@@ -81,7 +98,7 @@
         tools:layout_editor_absoluteY="24dp"
         android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/hand"
+        app:layout_constraintBottom_toTopOf="@id/money"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buys"/>
 
@@ -97,7 +114,7 @@
         tools:layout_editor_absoluteY="24dp"
         android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/hand"
+        app:layout_constraintBottom_toTopOf="@id/money"
         app:layout_constraintStart_toEndOf="@id/actions"
         app:layout_constraintEnd_toStartOf="@+id/gold" />
 
@@ -113,7 +130,7 @@
         tools:layout_editor_absoluteY="24dp"
         android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/hand"
+        app:layout_constraintBottom_toTopOf="@id/money"
         app:layout_constraintStart_toEndOf="@id/buys"
         app:layout_constraintEnd_toEndOf="parent"/>
 
