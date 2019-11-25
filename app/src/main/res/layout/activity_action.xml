@@ -71,7 +71,7 @@
     android:layout_height="wrap_content"/>
 
   <Button
-    android:id="@+id/play_action"
+    android:id="@+id/play_card"
     android:text="PLAY"
     android:textSize="32dp"
     android:textAlignment="center"

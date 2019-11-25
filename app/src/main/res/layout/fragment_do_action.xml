@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/frameLayout4"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".controller.DoActionFragment">
+
+  <TextView
+    android:id="@+id/actions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:freezesText="true"
+    android:text="Actions"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toTopOf="@id/viewPager"
+    app:layout_constraintEnd_toStartOf="@+id/buys"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/buys"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:freezesText="true"
+    android:text="Buys"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toTopOf="@id/viewPager"
+    app:layout_constraintEnd_toStartOf="@+id/gold"
+    app:layout_constraintStart_toEndOf="@id/actions"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/gold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:freezesText="true"
+    android:text="Gold"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toTopOf="@id/viewPager"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/buys"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <androidx.viewpager.widget.ViewPager
+    android:id="@+id/viewPager"
+    android:layout_width="0dp"
+    android:layout_height="630dp"
+    app:layout_constraintBottom_toTopOf="@id/play_card"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/buys"/>
+
+  <Button
+    android:id="@+id/play_card"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/buttonshape"
+    android:fontFamily="monospace"
+    android:shadowColor="#A8A8A8"
+    android:shadowDx="0"
+    android:shadowDy="0"
+    android:shadowRadius="5"
+    android:text="Play Card"
+    android:textColor="#FFFFFF"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/end_action"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/viewPager"/>
+
+  <Button
+    android:id="@+id/end_action"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/buttonshape"
+    android:fontFamily="monospace"
+    android:shadowColor="#A8A8A8"
+    android:shadowDx="0"
+    android:shadowDy="0"
+    android:shadowRadius="5"
+    android:text="End Actions"
+    android:textAlignment="center"
+    android:textColor="#FFFFFF"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/end_turn"
+    app:layout_constraintStart_toEndOf="@id/play_card"
+    app:layout_constraintTop_toBottomOf="@+id/viewPager"/>
+
+  <Button
+    android:id="@+id/end_turn"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/buttonshape"
+    android:fontFamily="monospace"
+    android:shadowColor="#A8A8A8"
+    android:shadowDx="0"
+    android:shadowDy="0"
+    android:shadowRadius="5"
+    android:text="End Turn"
+    android:textAlignment="center"
+    android:textColor="#FFFFFF"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/end_action"
+    app:layout_constraintTop_toBottomOf="@+id/viewPager"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,7 +87,6 @@ public class GoogleSignInService {
   }
 
   private static class InstanceHolder{
-
     private static final GoogleSignInService INSTANCE= new GoogleSignInService();
   }
 }

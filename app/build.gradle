@@ -11,6 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_URL", '"http://10.0.2.2:8080/"'
+        buildConfigField "String", "CLIENT_ID", '"1015572044700-iodhd9a0cd8frgqqmvgtu5nstm97r7b3.apps.googleusercontent.com"'
     }
     buildTypes {
         release {
@@ -25,6 +27,10 @@ android {
 }
 
 dependencies {
+    def nav_version = "2.1.0"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
