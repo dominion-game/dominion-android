@@ -14,10 +14,10 @@ import edu.cnm.deepdive.dominionandroid.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BuysFragment extends Fragment {
+public class BuysOptionsFragment extends Fragment {
 
 
-    public BuysFragment() {
+    public BuysOptionsFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class BuysFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buys, container, false);
+        return inflater.inflate(R.layout.fragment_buys_options, container, false);
     }
 
 }

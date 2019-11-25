@@ -21,25 +21,55 @@
     android:label="fragment_action"
     tools:layout="@layout/fragment_action">
     <action
+      android:id="@+id/action_actionFragment_to_doActionFragment2"
+      app:destination="@id/doActionFragment"/>
+    <action
+      android:id="@+id/action_actionFragment_to_buysOptionsFragment"
+      app:destination="@id/buysOptionsFragment"/>
+    <action
       android:id="@+id/action_actionFragment_to_turnSummaryFragment"
       app:destination="@id/turnSummaryFragment"/>
-    <action
-      android:id="@+id/action_actionFragment_to_buysFragment"
-      app:destination="@id/buysFragment"/>
   </fragment>
 
   <fragment
     android:id="@+id/turnSummaryFragment"
     android:name="edu.cnm.deepdive.dominionandroid.controller.TurnSummaryFragment"
     android:label="fragment_turn_summary"
-    tools:layout="@layout/fragment_turn_summary"/>
+    tools:layout="@layout/fragment_turn_summary">
+    <action
+      android:id="@+id/action_turnSummaryFragment_to_actionFragment2"
+      app:destination="@id/actionFragment"/>
+  </fragment>
 
   <fragment
-    android:id="@+id/buysFragment"
-    android:name="edu.cnm.deepdive.dominionandroid.controller.BuysFragment"
-    android:label="BuysFragment">
+    android:id="@+id/doActionFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.DoActionFragment"
+    android:label="fragment_do_action"
+    tools:layout="@layout/fragment_do_action">
     <action
-      android:id="@+id/action_buysFragment_to_turnSummaryFragment"
+      android:id="@+id/action_doActionFragment_to_buysOptionsFragment"
+      app:destination="@id/buysOptionsFragment"/>
+    <action
+      android:id="@+id/action_doActionFragment_to_turnSummaryFragment"
+      app:destination="@id/turnSummaryFragment"/>
+  </fragment>
+  <fragment
+    android:id="@+id/buysOptionsFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.BuysOptionsFragment"
+    android:label="BuysOptionsFragment">
+    <action
+      android:id="@+id/action_buysOptionsFragment_to_doBuysFragment"
+      app:destination="@id/doBuysFragment"/>
+    <action
+      android:id="@+id/action_buysOptionsFragment_to_turnSummaryFragment"
+      app:destination="@id/turnSummaryFragment"/>
+  </fragment>
+  <fragment
+    android:id="@+id/doBuysFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.DoBuysFragment"
+    android:label="DoBuysFragment">
+    <action
+      android:id="@+id/action_doBuysFragment_to_turnSummaryFragment"
       app:destination="@id/turnSummaryFragment"/>
   </fragment>
 
