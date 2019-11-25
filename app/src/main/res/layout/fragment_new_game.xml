@@ -9,7 +9,7 @@
     tools:context=".controller.NewGameFragment">
 
     <Button
-        android:id="@+id/angry_btn"
+        android:id="@+id/new_game"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:textAllCaps="true"
         android:textColor="#2B96EB"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/angry_btn"
+        app:layout_constraintBottom_toTopOf="@+id/new_game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

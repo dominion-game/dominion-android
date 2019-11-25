@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph"
+  app:startDestination="@id/newGameFragment">
+
+  <fragment
+    android:id="@+id/newGameFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.NewGameFragment"
+    android:label="fragment_new_game"
+    tools:layout="@layout/fragment_new_game">
+    <action
+      android:id="@+id/action_newGameFragment_to_actionFragment"
+      app:destination="@id/actionFragment"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/actionFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.ActionFragment"
+    android:label="fragment_action"
+    tools:layout="@layout/fragment_action">
+    <action
+      android:id="@+id/action_actionFragment_to_turnSummaryFragment"
+      app:destination="@id/turnSummaryFragment"/>
+    <action
+      android:id="@+id/action_actionFragment_to_buysFragment"
+      app:destination="@id/buysFragment"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/turnSummaryFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.TurnSummaryFragment"
+    android:label="fragment_turn_summary"
+    tools:layout="@layout/fragment_turn_summary"/>
+
+  <fragment
+    android:id="@+id/buysFragment"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.BuysFragment"
+    android:label="BuysFragment">
+    <action
+      android:id="@+id/action_buysFragment_to_turnSummaryFragment"
+      app:destination="@id/turnSummaryFragment"/>
+  </fragment>
+
+</navigation>
