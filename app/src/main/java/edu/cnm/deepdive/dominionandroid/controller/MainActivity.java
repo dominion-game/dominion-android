@@ -1,7 +1,10 @@
 package edu.cnm.deepdive.dominionandroid.controller;
 
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +17,17 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    Toolbar toolbar = findViewById(R.id.toolbar);
+//    setSupportActionBar(toolbar);
   }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+   getMenuInflater().inflate(R.menu.options, menu);
+    return true;
+  }
+
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     boolean handled = true;
