@@ -1,8 +1,12 @@
 package edu.cnm.deepdive.dominionandroid.controller;
 
+import android.content.Intent;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.service.GoogleSignInService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +14,32 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+  }
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    boolean handled = true;
+    Intent intent;
+    switch (item
+        .getItemId()) { //all primitive types except float, long double, wrappers for same times, enums, strings
+      case R.id.sign_out:
+        signOut();
+        break;
+//      case R.id.preferences:
+//        intent = new Intent(this, SettingsActivity.class);
+//        startActivity(intent);
+//        break;
+      default:
+        handled = super.onOptionsItemSelected(item);
+    }
+    return handled;
+  }
+
+  private void signOut() {
+    GoogleSignInService.getInstance().signOut()
+        .addOnCompleteListener((task) -> {                           //success or fail
+          Intent intent = new Intent(this, LoginActivity.class);
+          intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+          startActivity(intent);
+        });
   }
 }

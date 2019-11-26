@@ -3,6 +3,7 @@ package edu.cnm.deepdive.dominionandroid.controller;
 
 import android.os.Bundle;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.dominionandroid.R;
 
 /**
@@ -30,7 +32,15 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_do_action, container, false);
+    View view = inflater.inflate(R.layout.fragment_do_action, container, false);
+
+    ImageView imageView = view.findViewById(R.id.image_view);
+
+//    Picasso.with(getContext()).load(R.drawable.dominion_logo).into(imageView);
+//    Picasso.with(getContext()).load(R.drawable.duchy).into(imageView);
+
+
+    return view;
   }
 
   @Override

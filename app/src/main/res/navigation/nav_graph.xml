@@ -12,7 +12,11 @@
     tools:layout="@layout/fragment_new_game">
     <action
       android:id="@+id/action_newGameFragment_to_actionFragment"
-      app:destination="@id/actionFragment"/>
+      app:destination="@id/actionFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
   </fragment>
 
   <fragment
@@ -22,13 +26,28 @@
     tools:layout="@layout/fragment_action">
     <action
       android:id="@+id/action_actionFragment_to_doActionFragment2"
-      app:destination="@id/doActionFragment"/>
+      app:destination="@id/doActionFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
+
     <action
       android:id="@+id/action_actionFragment_to_buysOptionsFragment"
-      app:destination="@id/buysOptionsFragment"/>
+      app:destination="@id/buysOptionsFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
+
     <action
       android:id="@+id/action_actionFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"/>
+      app:destination="@id/turnSummaryFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
+
   </fragment>
 
   <fragment
@@ -38,7 +57,11 @@
     tools:layout="@layout/fragment_turn_summary">
     <action
       android:id="@+id/action_turnSummaryFragment_to_actionFragment2"
-      app:destination="@id/actionFragment"/>
+      app:destination="@id/actionFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
   </fragment>
 
   <fragment
@@ -48,29 +71,53 @@
     tools:layout="@layout/fragment_do_action">
     <action
       android:id="@+id/action_doActionFragment_to_buysOptionsFragment"
-      app:destination="@id/buysOptionsFragment"/>
+      app:destination="@id/buysOptionsFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
+
     <action
       android:id="@+id/action_doActionFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"/>
+      app:destination="@id/turnSummaryFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
   </fragment>
+
   <fragment
     android:id="@+id/buysOptionsFragment"
     android:name="edu.cnm.deepdive.dominionandroid.controller.BuysOptionsFragment"
     android:label="BuysOptionsFragment">
     <action
       android:id="@+id/action_buysOptionsFragment_to_doBuysFragment"
-      app:destination="@id/doBuysFragment"/>
+      app:destination="@id/doBuysFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
+
     <action
       android:id="@+id/action_buysOptionsFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"/>
+      app:destination="@id/turnSummaryFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
   </fragment>
+
   <fragment
     android:id="@+id/doBuysFragment"
     android:name="edu.cnm.deepdive.dominionandroid.controller.DoBuysFragment"
     android:label="DoBuysFragment">
     <action
       android:id="@+id/action_doBuysFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"/>
+      app:destination="@id/turnSummaryFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"/>
   </fragment>
 
 </navigation>
