@@ -34,7 +34,7 @@
       android:text="Actions"
       android:textColor="#FFFFFF"
       android:textSize="16sp"
-      app:layout_constraintBottom_toTopOf="@id/image_view"
+      app:layout_constraintBottom_toTopOf="@id/view_pager"
       app:layout_constraintEnd_toStartOf="@+id/buys"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/turn_summary"/>
@@ -50,7 +50,7 @@
         android:text="Buys"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/image_view"
+        app:layout_constraintBottom_toTopOf="@id/view_pager"
         app:layout_constraintEnd_toStartOf="@+id/gold"
         app:layout_constraintStart_toEndOf="@id/actions"
         app:layout_constraintTop_toBottomOf="@id/turn_summary"/>
@@ -65,7 +65,7 @@
         android:text="Gold"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/image_view"
+        app:layout_constraintBottom_toTopOf="@id/view_pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/buys"
         app:layout_constraintTop_toBottomOf="@id/turn_summary"
@@ -73,7 +73,7 @@
         tools:layout_editor_absoluteY="24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/image_view"
+      android:id="@+id/view_pager"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toTopOf="@id/start_my_turn"
@@ -98,7 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
+        app:layout_constraintTop_toBottomOf="@id/view_pager" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/frameLayout4"
-  android:layout_width="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_height="match_parent"
-  tools:context=".controller.DoActionFragment">
+  android:layout_width="match_parent"
+  android:background="#615757">
 
   <TextView
     android:id="@+id/actions"
@@ -15,10 +16,11 @@
     android:text="Actions"
     android:textColor="#FFFFFF"
     android:textSize="24sp"
-    app:layout_constraintBottom_toTopOf="@id/image_view"
+    app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toStartOf="@+id/buys"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0"/>
 
   <TextView
     android:id="@+id/buys"
@@ -28,7 +30,7 @@
     android:text="Buys"
     android:textColor="#FFFFFF"
     android:textSize="24sp"
-    app:layout_constraintBottom_toTopOf="@id/image_view"
+    app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toStartOf="@+id/gold"
     app:layout_constraintStart_toEndOf="@id/actions"
     app:layout_constraintTop_toTopOf="parent"/>
@@ -41,24 +43,26 @@
     android:text="Gold"
     android:textColor="#FFFFFF"
     android:textSize="24sp"
-    app:layout_constraintBottom_toTopOf="@id/image_view"
+    app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@id/buys"
     app:layout_constraintTop_toTopOf="parent"/>
 
-  <ImageView
-    android:id="@+id/image_view"
-    android:layout_width="0dp"
-    android:layout_height="630dp"
-    app:layout_constraintBottom_toTopOf="@id/play_card"
+  <androidx.viewpager.widget.ViewPager
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_pager"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toTopOf="@id/end_turn"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/buys"/>
+    app:layout_constraintTop_toBottomOf="@id/buys"
+    tools:context=".controller.DoActionFragment"/>
 
   <Button
     android:id="@+id/play_card"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/buttonshape"
     android:fontFamily="monospace"
     android:shadowColor="#A8A8A8"
@@ -71,12 +75,12 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@id/end_action"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/image_view"/>
+    app:layout_constraintTop_toBottomOf="@id/view_pager"/>
 
   <Button
     android:id="@+id/end_action"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/buttonshape"
     android:fontFamily="monospace"
     android:shadowColor="#A8A8A8"
@@ -90,12 +94,12 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@id/end_turn"
     app:layout_constraintStart_toEndOf="@id/play_card"
-    app:layout_constraintTop_toBottomOf="@+id/image_view"/>
+    app:layout_constraintTop_toBottomOf="@+id/view_pager"/>
 
   <Button
     android:id="@+id/end_turn"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/buttonshape"
     android:fontFamily="monospace"
     android:shadowColor="#A8A8A8"
@@ -109,7 +113,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@id/end_action"
-    app:layout_constraintTop_toBottomOf="@+id/image_view"/>
+    app:layout_constraintTop_toBottomOf="@+id/view_pager"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

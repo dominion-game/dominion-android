@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.dominionandroid;
 
 import android.app.Application;
+import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.dominionandroid.service.GoogleSignInService;
 
 
@@ -16,5 +17,10 @@ public class DominionApplication extends Application{
     public void onCreate() {
       super.onCreate();
       GoogleSignInService.setApplicationContext(this);
+      Picasso.setSingletonInstance(
+          new Picasso.Builder(this)
+          .loggingEnabled(true)
+          .build()
+      );
     }
 }
