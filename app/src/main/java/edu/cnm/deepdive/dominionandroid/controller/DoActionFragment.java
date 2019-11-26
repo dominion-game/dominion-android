@@ -23,6 +23,7 @@ import edu.cnm.deepdive.dominionandroid.R;
 public class DoActionFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
+
   private String[] imageUrls = new String[]{
       "https://pure-tundra-13659.herokuapp.com/pics/market",
       "https://pure-tundra-13659.herokuapp.com/pics/village",

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import io.reactivex.internal.operators.observable.ObservableNever;
 
@@ -22,6 +23,14 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
 
+  private String[] imageUrls = new String[]{
+      "https://pure-tundra-13659.herokuapp.com/pics/militia",
+      "https://pure-tundra-13659.herokuapp.com/pics/province",
+      "https://pure-tundra-13659.herokuapp.com/pics/silver",
+      "https://pure-tundra-13659.herokuapp.com/pics/moat",
+      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
+  };
+
   public DoBuysFragment() {
     // Required empty public constructor
   }
@@ -31,7 +40,13 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_do_buys, container, false);
+    View view = inflater.inflate(R.layout.fragment_do_buys, container, false);
+
+    ViewPager viewPager= view.findViewById(R.id.view_pager);
+    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
+    viewPager.setAdapter(adapter);
+
+    return view;
   }
 
   @Override
