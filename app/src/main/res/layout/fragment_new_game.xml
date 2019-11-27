@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:background="@drawable/buttonshape"
+        android:background="@drawable/blue_button"
         android:fontFamily="monospace"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"

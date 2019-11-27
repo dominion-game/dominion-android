@@ -39,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
       case R.id.sign_out:
         signOut();
         break;
-//      case R.id.preferences:
+      case R.id.instructions:
+        gameInstructions();
+        break;
+//            case R.id.preferences:
 //        intent = new Intent(this, SettingsActivity.class);
 //        startActivity(intent);
 //        break;
@@ -56,5 +59,10 @@ public class MainActivity extends AppCompatActivity {
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent);
         });
+  }
+
+  public void gameInstructions(){
+    Intent intent= new Intent(this, MainActivity.class);
+
   }
 }
