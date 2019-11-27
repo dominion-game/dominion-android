@@ -6,16 +6,21 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
+import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +28,7 @@ import edu.cnm.deepdive.dominionandroid.R;
 public class DoActionFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
+  GameViewModel gameViewModel;
 
   private String[] imageUrls = new String[]{
       "https://pure-tundra-13659.herokuapp.com/pics/market",
@@ -31,6 +37,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       "https://pure-tundra-13659.herokuapp.com/pics/gold",
       "https://pure-tundra-13659.herokuapp.com/pics/workshop"
   };
+
   public DoActionFragment() {
     // Required empty public constructor
   }
@@ -39,9 +46,15 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_do_action, container, false);
+//    View view = inflater.inflate(R.layout.fragment_do_action, container, false);
 
-//    ImageView imageView = view.findViewById(R.id.imageView);
+    FragmentDoActionBinding binding;
+    binding= DataBindingUtil.inflate(
+        inflater,R.layout.fragment_do_action, container,false);
+    binding.setLifecycleOwner(this);
+    View view = binding.getRoot();
+    GameViewModel gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
+    binding.setViewModel(gameViewModel);
 
     ViewPager viewPager= view.findViewById(R.id.view_pager);
     ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
@@ -49,8 +62,6 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 
 //    Picasso.with(getContext()).load(R.drawable.dominion_logo).into(imageView);
 //    Picasso.with(getContext()).load(R.drawable.duchy).into(imageView);
-
-
     return view;
   }
 
@@ -75,4 +86,5 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     }
       //TODO need to implement button functionality for play card
   }
+
 }
