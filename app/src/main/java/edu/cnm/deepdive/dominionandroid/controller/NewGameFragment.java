@@ -46,6 +46,6 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        navController.navigate(R.id.action_newGameFragment_to_actionFragment);
+        navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
     }
 }

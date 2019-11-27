@@ -11,43 +11,8 @@
     android:label="fragment_new_game"
     tools:layout="@layout/fragment_new_game">
     <action
-      android:id="@+id/action_newGameFragment_to_actionFragment"
-      app:destination="@id/actionFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
-  </fragment>
-
-  <fragment
-    android:id="@+id/actionFragment"
-    android:name="edu.cnm.deepdive.dominionandroid.controller.ActionFragment"
-    android:label="fragment_action"
-    tools:layout="@layout/fragment_action">
-    <action
-      android:id="@+id/action_actionFragment_to_doActionFragment2"
-      app:destination="@id/doActionFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
-
-    <action
-      android:id="@+id/action_actionFragment_to_buysOptionsFragment"
-      app:destination="@id/buysOptionsFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
-
-    <action
-      android:id="@+id/action_actionFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
-
+      android:id="@+id/action_newGameFragment_to_doActionFragment"
+      app:destination="@id/doActionFragment"/>
   </fragment>
 
   <fragment
@@ -56,12 +21,8 @@
     android:label="fragment_turn_summary"
     tools:layout="@layout/fragment_turn_summary">
     <action
-      android:id="@+id/action_turnSummaryFragment_to_actionFragment2"
-      app:destination="@id/actionFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
+      android:id="@+id/action_turnSummaryFragment_to_doActionFragment"
+      app:destination="@id/doActionFragment"/>
   </fragment>
 
   <fragment

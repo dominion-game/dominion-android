@@ -44,6 +44,6 @@ public class TurnSummaryFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        navController.navigate(R.id.action_turnSummaryFragment_to_actionFragment2);
+        navController.navigate(R.id.action_turnSummaryFragment_to_doActionFragment);
     }
 }
