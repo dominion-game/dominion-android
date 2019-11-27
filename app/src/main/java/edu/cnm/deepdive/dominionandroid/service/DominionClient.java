@@ -20,7 +20,7 @@ public class DominionClient {
     retrofit = new Retrofit.Builder()
         .baseUrl("https://reqres.in")
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .client(client)
         .build();
 

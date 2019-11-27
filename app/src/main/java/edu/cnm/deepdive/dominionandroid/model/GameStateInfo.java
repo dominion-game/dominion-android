@@ -7,6 +7,6 @@ import java.util.List;
  *
  */
 public class GameStateInfo {
-  private List<Card> cardsInHand;
-  private
+//  private List<Card> cardsInHand;
+//  private
 }
