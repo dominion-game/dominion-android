@@ -9,6 +9,18 @@
   android:background="#615757">
 
   <TextView
+    android:id="@+id/players_hand"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Player's Hand"
+    android:textSize="32dp"
+    android:textAlignment="center"
+    android:textColor="#FFFFFF"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/buys"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+  <TextView
     android:id="@+id/actions"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -19,7 +31,7 @@
     app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toStartOf="@+id/buys"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/players_hand"
     app:layout_constraintVertical_bias="1.0"/>
 
   <TextView
@@ -33,7 +45,7 @@
     app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toStartOf="@+id/gold"
     app:layout_constraintStart_toEndOf="@id/actions"
-    app:layout_constraintTop_toTopOf="parent"/>
+    app:layout_constraintTop_toBottomOf="@id/players_hand"/>
 
   <TextView
     android:id="@+id/gold"
@@ -46,7 +58,7 @@
     app:layout_constraintBottom_toTopOf="@id/view_pager"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@id/buys"
-    app:layout_constraintTop_toTopOf="parent"/>
+    app:layout_constraintTop_toBottomOf="@id/players_hand"/>
 
   <androidx.viewpager.widget.ViewPager
     xmlns:tools="http://schemas.android.com/tools"
@@ -58,7 +70,10 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/buys"
     tools:context=".controller.DoActionFragment"
-    android:padding="16dp"/>
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="36dp"
+    android:paddingRight="36dp"/>
 
   <Button
     android:id="@+id/play_card"
