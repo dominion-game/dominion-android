@@ -6,15 +6,20 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.databinding.FragmentBuysOptionsBinding;
+import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
+import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +37,16 @@ public class BuysOptionsFragment extends Fragment implements OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_buys_options, container, false);
+
+    FragmentBuysOptionsBinding binding;
+    binding= DataBindingUtil.inflate(
+        inflater,R.layout.fragment_buys_options, container,false);
+    binding.setLifecycleOwner(this);
+    View view = binding.getRoot();
+    GameViewModel gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
+    binding.setViewModel(gameViewModel);
+
+    return view;
   }
 
   @Override

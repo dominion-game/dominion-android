@@ -25,9 +25,6 @@ public class GameViewModel extends AndroidViewModel {
   MutableLiveData<Integer> myVictoryPoints;
   MutableLiveData<Integer> theirVictoryPoints;
   MutableLiveData<String> myActionsRemaining;
-
-  public String exActions = "actions";
-
   MutableLiveData<Integer> myBuysRemaining;
   MutableLiveData<Integer> myBuyingPower;
   MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack;

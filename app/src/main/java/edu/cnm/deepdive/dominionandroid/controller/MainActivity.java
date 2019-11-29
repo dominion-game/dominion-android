@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
       case R.id.sign_out:
         signOut();
         break;
-      case R.id.instructions:
-        gameInstructions();
-        break;
+//      case R.id.instructions:
+//        gameInstructions();
+//        break;
 //            case R.id.preferences:
 //        intent = new Intent(this, SettingsActivity.class);
 //        startActivity(intent);
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         });
   }
 
-  public void gameInstructions(){
-    Intent intent= new Intent(this, MainActivity.class);
-
-  }
+//  public void gameInstructions(){
+//    Intent intent= new Intent(this, MainActivity.class);
+//
+//  }
 }

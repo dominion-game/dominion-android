@@ -5,15 +5,20 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
+import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoBuysBinding;
+import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 import io.reactivex.internal.operators.observable.ObservableNever;
 
 /**
@@ -40,7 +45,14 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_do_buys, container, false);
+
+    FragmentDoBuysBinding binding;
+    binding= DataBindingUtil.inflate(
+        inflater,R.layout.fragment_do_buys, container,false);
+    binding.setLifecycleOwner(this);
+    View view = binding.getRoot();
+    GameViewModel gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
+    binding.setViewModel(gameViewModel);
 
     ViewPager viewPager= view.findViewById(R.id.view_pager);
     ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
