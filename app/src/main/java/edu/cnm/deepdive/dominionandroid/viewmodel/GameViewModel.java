@@ -24,7 +24,10 @@ public class GameViewModel extends AndroidViewModel {
   MutableLiveData<List<Card>> cardsInDrawPile;
   MutableLiveData<Integer> myVictoryPoints;
   MutableLiveData<Integer> theirVictoryPoints;
-  MutableLiveData<Integer> myActionsRemaining;
+  MutableLiveData<String> myActionsRemaining;
+
+  public String exActions = "actions";
+
   MutableLiveData<Integer> myBuysRemaining;
   MutableLiveData<Integer> myBuyingPower;
   MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack;
@@ -90,13 +93,14 @@ public class GameViewModel extends AndroidViewModel {
     this.theirVictoryPoints = theirVictoryPoints;
   }
 
-  public MutableLiveData<Integer> getMyActionsRemaining() {
+  public MutableLiveData<String> getMyActionsRemaining() {
     return myActionsRemaining;
   }
 
   public void setMyActionsRemaining(
       MutableLiveData<Integer> myActionsRemaining) {
-    this.myActionsRemaining = myActionsRemaining;
+    this.myActionsRemaining = new MutableLiveData<>();
+    this.myActionsRemaining.setValue(myActionsRemaining.getValue().toString());
   }
 
   public MutableLiveData<Integer> getMyBuysRemaining() {

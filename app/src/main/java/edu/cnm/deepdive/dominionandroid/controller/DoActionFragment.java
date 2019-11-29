@@ -1,9 +1,11 @@
 package edu.cnm.deepdive.dominionandroid.controller;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -29,6 +31,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
   GameViewModel gameViewModel;
+  TextView actionsText;
 
   private String[] imageUrls = new String[]{
       "https://pure-tundra-13659.herokuapp.com/pics/market",
@@ -72,6 +75,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     view.findViewById(R.id.play_card).setOnClickListener(this);
     view.findViewById(R.id.end_action).setOnClickListener(this);
     view.findViewById(R.id.end_turn).setOnClickListener(this);
+    actionsText = view.findViewById(R.id.actions);
   }
 
   @Override
@@ -84,7 +88,8 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
         break;
     }
-      //TODO need to implement button functionality for play card
+    actionsText.setBackgroundColor(Color.TRANSPARENT);
+    //TODO need to implement button functionality for play card
   }
 
 }

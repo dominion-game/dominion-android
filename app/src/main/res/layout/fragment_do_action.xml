@@ -34,12 +34,14 @@
       android:freezesText="true"
       android:textColor="#FFFFFF"
       android:textSize="24sp"
+      android:text="Actions"
+      android:background="@color/colorAccent"
       app:layout_constraintBottom_toTopOf="@id/view_pager"
       app:layout_constraintEnd_toStartOf="@+id/buys"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/players_hand"
       app:layout_constraintVertical_bias="1.0"/>
-    android:text="@{viewModel.myActionsRemaining}"/>-->
+<!--    android:text="@{viewModel.myActionsRemaining}"-->
 
 
     <TextView
