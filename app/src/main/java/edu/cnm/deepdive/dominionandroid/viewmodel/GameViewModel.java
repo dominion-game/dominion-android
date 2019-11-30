@@ -53,28 +53,6 @@ public class GameViewModel extends AndroidViewModel {
     pending = new CompositeDisposable();
     executor = Executors.newSingleThreadExecutor();
   }
-//THIS IS THE IMPORTANT ONE
-  public void processNewGameState(){
-    if(gameStateInfo.body().getCardsInHand()!=null) {
-      this.cardsInHand.setValue(gameStateInfo.body().getCardsInHand());
-    }
-
-    if(gameStateInfo.body().getPlaysMadeLastTurnByOtherPlayer()!=null) {
-      this.playsMadeLastTurnByOtherPlayer.setValue(gameStateInfo.body().getPlaysMadeLastTurnByOtherPlayer());
-    }
-    if(gameStateInfo.body().getStacks()!=null) {
-      this.stacks.setValue(gameStateInfo.body().getStacks());
-    }
-    if(gameStateInfo.body().getWhatStateAmIIn()!=null) {
-      this.whatStateAmIIn.setValue(gameStateInfo.body().getWhatStateAmIIn());
-    }
-    this.myBuysRemaining.setValue(gameStateInfo.body().getMyBuysRemaining());
-    this.myActionsRemaining.setValue(gameStateInfo.body().getMyActionsRemaining());
-    this.myBuyingPower.setValue(gameStateInfo.body().getMyBuyingPower());
-    this.myVictoryPoints.setValue(gameStateInfo.body().getMyBuyingPower());
-    this.theirVictoryPoints.setValue(gameStateInfo.body().getTheirVictoryPoints());
-  }
-
 
   public void setAccount(GoogleSignInAccount account) {
     this.account.setValue(account);
