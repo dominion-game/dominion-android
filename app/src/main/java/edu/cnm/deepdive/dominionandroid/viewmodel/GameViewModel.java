@@ -70,7 +70,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+
   }
   @SuppressLint("CheckResult")
   public void playCard(Card card, List<Card> cards){
@@ -83,7 +83,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+
   }
   @SuppressLint("CheckResult")
   public void buyCard(Card card){
@@ -96,7 +96,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+
   }
   @SuppressLint("CheckResult")
   public void buyCard(Card card, List<Card> cards){
@@ -109,7 +109,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+
   }
   @SuppressLint("CheckResult")
   public void getGameStateInfo(){
@@ -122,7 +122,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+
   }
   @SuppressLint("CheckResult")
   public void endPhase(){
@@ -135,7 +135,7 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         );
     gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+  
   }
 
 
