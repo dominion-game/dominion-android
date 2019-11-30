@@ -13,10 +13,15 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface DominionApiService {
+
+  @GET("gamestateinfo")
+  Call<GameStateInfo> getGameStateInfo();
+
   @POST("/get")
   Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo gameStateInfo);
 
@@ -52,7 +57,7 @@ public interface DominionApiService {
       Retrofit retrofit = new Retrofit.Builder()
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create(gson))
-          .baseUrl(BuildConfig.BASE_URL)
+          .baseUrl("https://pure-tundra-13659.herokuapp.com/")
           .build();
       INSTANCE = retrofit.create(DominionApiService.class);
     }

@@ -1,10 +1,8 @@
 package edu.cnm.deepdive.dominionandroid.model;
 
-import androidx.lifecycle.MutableLiveData;
 import com.google.gson.annotations.Expose;
 import java.io.Serializable;
-import java.sql.Array;
-import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,13 +30,13 @@ public class GameStateInfo implements Serializable {
   int myBuyingPower;
 
   @Expose
-  Dictionary<String, Integer> stacks;
+  HashMap<String, Integer> stacks;
 
   @Expose
-  List<Play> playsMadeLastTurnByOtherPlayer;
+  List<String> playsMadeLastTurnByOtherPlayer;
 
   @Expose
-  PhaseState whatStateAmIIn;
+  String whatState;
 
 
   public List<Card> getCardsInHand() {
@@ -89,28 +87,28 @@ public class GameStateInfo implements Serializable {
     this.myBuyingPower = myBuyingPower;
   }
 
-  public Dictionary<String, Integer> getStacks() {
+  public HashMap<String, Integer> getStacks() {
     return stacks;
   }
 
-  public void setStacks(Dictionary<String, Integer> stacks) {
+  public void setStacks(HashMap<String, Integer> stacks) {
     this.stacks = stacks;
   }
 
-  public List<Play> getPlaysMadeLastTurnByOtherPlayer() {
+  public List<String> getPlaysMadeLastTurnByOtherPlayer() {
     return playsMadeLastTurnByOtherPlayer;
   }
 
   public void setPlaysMadeLastTurnByOtherPlayer(
-      List<Play> playsMadeLastTurnByOtherPlayer) {
+      List<String> playsMadeLastTurnByOtherPlayer) {
     this.playsMadeLastTurnByOtherPlayer = playsMadeLastTurnByOtherPlayer;
   }
 
-  public PhaseState getWhatStateAmIIn() {
-    return whatStateAmIIn;
+  public String getWhatState() {
+    return whatState;
   }
 
-  public void setWhatStateAmIIn(PhaseState whatStateAmIIn) {
-    this.whatStateAmIIn = whatStateAmIIn;
+  public void setWhatState(String whatState) {
+    this.whatState = whatState;
   }
 }
