@@ -8,13 +8,16 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import edu.cnm.deepdive.dominionandroid.model.Card;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.service.DominionApiService;
 import edu.cnm.deepdive.dominionandroid.service.DominionClient;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -36,9 +39,8 @@ public class GameViewModel extends AndroidViewModel {
  private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer;
   private MutableLiveData<PhaseState> whatStateAmIIn;
   private Response<GameStateInfo> gameStateInfo;
-  private LiveData<Response<GameStateInfo>> gameStateInfoLiveData;
-  private DominionApiService apiService;
-  private DominionClient dominionClient;
+  private final LiveData<Response<GameStateInfo>> gameStateInfoLiveData = new MutableLiveData<>();
+  private final DominionApiService apiService = DominionApiService.getInstance();
   private ExecutorService executor;
   private CompositeDisposable pending = new CompositeDisposable();
   private Context context;
@@ -58,8 +60,9 @@ public class GameViewModel extends AndroidViewModel {
     this.account.setValue(account);
     getGameStateInfo();
   }
-  
+
   public void processNewGameState(){
+
     if(gameStateInfo.body().getCardsInHand()!=null) {
       this.cardsInHand.setValue(gameStateInfo.body().getCardsInHand());
     }
@@ -136,17 +139,28 @@ public class GameViewModel extends AndroidViewModel {
   public void getGameStateInfo(){
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    apiService.getGameStateInfo()
+    pending.add(apiService.getGameStateInfo()
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
             (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
             this.throwable::postValue
-        );
+        ));
+
     gameStateInfo = gameStateInfoLiveData.getValue();
     processNewGameState();
   }
-  @SuppressLint("CheckResult")
+
   public void endPhase(){
+    GoogleSignInAccount account = this.account.getValue();
+    if (account != null) {
+      endPhase(account);
+    } else {
+      //gameStateInfoLiveData.setValue(Collections.EMPTY_LIST);
+    }
+  }
+  @SuppressLint("CheckResult")
+  private void endPhase(GoogleSignInAccount account){
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     apiService.endPhase()

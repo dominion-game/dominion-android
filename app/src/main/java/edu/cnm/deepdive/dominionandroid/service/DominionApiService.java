@@ -11,6 +11,8 @@ import java.util.Optional;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -39,9 +41,29 @@ public interface DominionApiService {
   @POST("/plays/endphase")
   Single<Response<GameStateInfo>> endPhase();
 
+  static DominionApiService getInstance() {
+    return InstanceHolder.INSTANCE;
+  }
 
+  class InstanceHolder {
+
+    private static final DominionApiService INSTANCE;
+
+    static {
+      // TODO Investigate logging interceptor issues.
+      Gson gson = new GsonBuilder()
+          .excludeFieldsWithoutExposeAnnotation()
+          .create();
+      Retrofit retrofit = new Retrofit.Builder()
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+          .addConverterFactory(GsonConverterFactory.create(gson))
+          .baseUrl("https://pure-tundra-13659.herokuapp.com/")
+          .build();
+      INSTANCE = retrofit.create(DominionApiService.class);
+    }
+
+  }
 
   }
 
 
-}
