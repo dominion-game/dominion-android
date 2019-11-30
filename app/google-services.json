@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "271024864908",
-    "firebase_url": "https://dominion-257420.firebaseio.com",
-    "project_id": "dominion-257420",
-    "storage_bucket": "dominion-257420.appspot.com"
+    "project_number": "726311849637",
+    "firebase_url": "https://dominion-android-with-firebase.firebaseio.com",
+    "project_id": "dominion-android-with-firebase",
+    "storage_bucket": "dominion-android-with-firebase.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:271024864908:android:3196352e4da7002ef445a9",
+        "mobilesdk_app_id": "1:726311849637:android:0e7b81d0465a9ad7da474c",
         "android_client_info": {
           "package_name": "edu.cnm.deepdive.dominionandroid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "271024864908-jj0geu1u429573tprlbi840jpmuvkcok.apps.googleusercontent.com",
+          "client_id": "726311849637-vp9m1otpc83regdpnode5ncvh25rl32q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.cnm.deepdive.dominionandroid",
+            "certificate_hash": "74181f9de244b98711953d5841dd862563393acf"
+          }
+        },
+        {
+          "client_id": "726311849637-ht752p0s8ijfk6ndvvbj2h13sb74dner.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6MM5LKvoyj7VIuBI43oQMtvznc9T-Y_I"
+          "current_key": "AIzaSyCmGoQgKPPm5aN1pAqTgvhxgMUkG3fUqVg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "271024864908-jj0geu1u429573tprlbi840jpmuvkcok.apps.googleusercontent.com",
+              "client_id": "726311849637-ht752p0s8ijfk6ndvvbj2h13sb74dner.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

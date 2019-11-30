@@ -11,8 +11,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface DominionApiService {
-  @POST("/get")
-  Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo request);
+
+  //Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo request);
 
   @POST("/games/createorjoin")
   Single<Response<GameStateInfo>> createOrJoin();
@@ -25,6 +25,8 @@ public interface DominionApiService {
 
   @POST("//{gameId}/plays/endphase")
   Single<Response<GameStateInfo>> endPhase();
+
+
 
 
 }
