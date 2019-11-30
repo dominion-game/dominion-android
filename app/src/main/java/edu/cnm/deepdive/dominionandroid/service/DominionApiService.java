@@ -1,5 +1,7 @@
 package edu.cnm.deepdive.dominionandroid.service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.dominionandroid.model.Card;
 import edu.cnm.deepdive.dominionandroid.model.CardSet;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -37,6 +40,8 @@ public interface DominionApiService {
   Single<Response<GameStateInfo>> endPhase();
 
 
+
+  }
 
 
 }
