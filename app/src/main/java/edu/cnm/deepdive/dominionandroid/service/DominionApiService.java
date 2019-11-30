@@ -23,22 +23,25 @@ public interface DominionApiService {
   @GET("/games/gamestateinfo")
   Single<Response<GameStateInfo>> getGameStateInfo();
 
-  @POST("/games/createorjoin")
-  Single<Response<GameStateInfo>> createOrJoin();
+  @POST("/games/newgame")
+  Single<Response<GameStateInfo>> newGame();
 
-  @POST ("/plays/{cardid}/action")
-  Single<Response<GameStateInfo>> doAction(@Path ("cardid") String cardName);
+  @GET("/games/getstate")
+  Single<Response<String>> getCurrentPhaseState();
 
-  @POST ("/plays/{cardid}/action")
-  Single<Response<GameStateInfo>> doAction(@Path ("cardid") String cardName, @Body List<Card> cards);
+  @POST ("/plays/{cardname}/action")
+  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName);
 
-  @POST ("/plays/{cardid}/buy")
-  Single<Response<GameStateInfo>> buyCard(@Path ("cardid") String cardName);
+  @POST ("/plays/{cardname}/action")
+  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName, @Body List<Card> cards);
 
-  @POST ("/plays/{cardid}/buy")
-  Single<Response<GameStateInfo>> buyCard(@Path ("cardid") String cardName, @Body List<Card> cards);
+  @POST ("/plays/{cardname}/buy")
+  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName);
 
-  @POST("/plays/endphase")
+  @POST ("/plays/{cardname}/buy")
+  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName, @Body List<Card> cards);
+
+  @POST("/games/endphase")
   Single<Response<GameStateInfo>> endPhase();
 
   static DominionApiService getInstance() {
@@ -57,7 +60,7 @@ public interface DominionApiService {
       Retrofit retrofit = new Retrofit.Builder()
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create(gson))
-          .baseUrl("https://pure-tundra-13659.herokuapp.com/")
+          .baseUrl("https://pure-tundra-13659.herokuapp.com")
           .build();
       INSTANCE = retrofit.create(DominionApiService.class);
     }
