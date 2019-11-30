@@ -39,7 +39,7 @@ public class GameViewModel extends AndroidViewModel {
  private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer;
   private MutableLiveData<PhaseState> whatStateAmIIn;
   private Response<GameStateInfo> gameStateInfo;
-  private final LiveData<Response<GameStateInfo>> gameStateInfoLiveData = new MutableLiveData<>();
+  private final MutableLiveData<Response<GameStateInfo>> gameStateInfoLiveData = new MutableLiveData<>();
   private final DominionApiService apiService = DominionApiService.getInstance();
   private ExecutorService executor;
   private CompositeDisposable pending = new CompositeDisposable();
@@ -87,12 +87,13 @@ public class GameViewModel extends AndroidViewModel {
   public void playCard(Card card){
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    apiService.doAction(card.getCardName())
+    pending.add(apiService.doAction(card.getCardName())
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            this.gameStateInfoLiveData::postValue,
             this.throwable::postValue
-        );
+        ));
     gameStateInfo = gameStateInfoLiveData.getValue();
     processNewGameState();
   }
@@ -100,12 +101,13 @@ public class GameViewModel extends AndroidViewModel {
   public void playCard(Card card, List<Card> cards){
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    apiService.doAction(card.getCardName(), cards)
+    pending.add(apiService.doAction(card.getCardName(), cards)
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            this.gameStateInfoLiveData::postValue,
             this.throwable::postValue
-        );
+        ));
     gameStateInfo = gameStateInfoLiveData.getValue();
     processNewGameState();
   }
@@ -113,12 +115,13 @@ public class GameViewModel extends AndroidViewModel {
   public void buyCard(Card card){
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    apiService.buyCard(card.getCardName())
+    pending.add(apiService.buyCard(card.getCardName())
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            this.gameStateInfoLiveData::postValue,
             this.throwable::postValue
-        );
+        ));
     gameStateInfo = gameStateInfoLiveData.getValue();
     processNewGameState();
   }
@@ -126,12 +129,13 @@ public class GameViewModel extends AndroidViewModel {
   public void buyCard(Card card, List<Card> cards){
    // String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
    // Log.d("Oauth2.0 token", token);
-    apiService.buyCard(card.getCardName(), cards)
+    pending.add(apiService.buyCard(card.getCardName(), cards)
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            this.gameStateInfoLiveData::postValue,
             this.throwable::postValue
-        );
+        ));
     gameStateInfo = gameStateInfoLiveData.getValue();
     processNewGameState();
   }
@@ -143,7 +147,7 @@ public class GameViewModel extends AndroidViewModel {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            this.gameStateInfoLiveData::postValue,
             this.throwable::postValue
         ));
 
@@ -227,7 +231,7 @@ public class GameViewModel extends AndroidViewModel {
   public void setMyActionsRemaining(
       MutableLiveData<Integer> myActionsRemaining) {
     this.myActionsRemaining = new MutableLiveData<Integer>();
-    this.myActionsRemaining.setValue(myActionsRemaining.getValue().toString());
+    this.myActionsRemaining.setValue(myActionsRemaining.getValue());
   }
 
   public MutableLiveData<Integer> getMyBuysRemaining() {
