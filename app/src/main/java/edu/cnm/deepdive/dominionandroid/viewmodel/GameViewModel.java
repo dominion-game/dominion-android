@@ -8,16 +8,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.model.Play;
 import edu.cnm.deepdive.dominionandroid.service.DominionApiService;
 import edu.cnm.deepdive.dominionandroid.service.DominionClient;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GameViewModel extends AndroidViewModel {
+
+  MutableLiveData<GameStateInfo> gameStateInfo;
+
+
 
   MutableLiveData<List<Card>> cardsInHand;
   MutableLiveData<List<Card>> cardsInDiscard;
@@ -31,7 +37,7 @@ public class GameViewModel extends AndroidViewModel {
   MutableLiveData<List<Play>> playsMadeLastTurnByOtherPlayer;
   MutableLiveData<PhaseState> whatStateAmIIn;
   private DominionApiService apiService;
-  private DominionClient dominionClient;
+//  private DominionClient dominionClient;
   private ExecutorService executor;
   private CompositeDisposable pending = new CompositeDisposable();
   private Context context;
@@ -41,10 +47,21 @@ public class GameViewModel extends AndroidViewModel {
 
   public GameViewModel(@NonNull Application application) {
     super(application);
+    gameStateInfo = new MutableLiveData<>();
+
+    apiService= DominionApiService.getInstance();
     context = application.getApplicationContext();
     pending = new CompositeDisposable();
     executor = Executors.newSingleThreadExecutor();
   }
+
+//  public void refreshGameStateInfo(){
+//    pending.add(
+//        apiService.itemGet()
+//        .subscribeOn(Schedulers.io())
+//        .subscribe(this.gameStateInfo::postValue, this.throwable::postValue)
+//    );
+//  }
 
   public MutableLiveData<List<Card>> getCardsInHand() {
     return cardsInHand;
@@ -94,8 +111,7 @@ public class GameViewModel extends AndroidViewModel {
     return myActionsRemaining;
   }
 
-  public void setMyActionsRemaining(
-      MutableLiveData<Integer> myActionsRemaining) {
+  public void setMyActionsRemaining(MutableLiveData<Integer> myActionsRemaining) {
     this.myActionsRemaining = new MutableLiveData<>();
     this.myActionsRemaining.setValue(myActionsRemaining.getValue().toString());
   }

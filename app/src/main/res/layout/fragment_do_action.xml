@@ -34,7 +34,7 @@
       android:freezesText="true"
       android:textColor="#FFFFFF"
       android:textSize="24sp"
-      android:text="Actions"
+      android:text="@{viewModel.myActionsRemaining}"
       android:background="@color/colorAccent"
       app:layout_constraintBottom_toTopOf="@id/view_pager"
       app:layout_constraintEnd_toStartOf="@+id/buys"
