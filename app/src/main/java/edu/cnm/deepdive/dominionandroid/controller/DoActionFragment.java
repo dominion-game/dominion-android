@@ -37,9 +37,9 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   TextView actionsText;
 
   private String[] imageNames = new String[]{
-      "market",
+      "copper",
       "village",
-      "estate",
+      "militia",
       "gold",
       "workshop"
   };
