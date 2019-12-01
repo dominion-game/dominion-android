@@ -3,10 +3,12 @@ package edu.cnm.deepdive.dominionandroid.service;
 import edu.cnm.deepdive.dominionandroid.model.CardSet;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import io.reactivex.Single;
+import java.util.List;
 import java.util.Optional;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -25,6 +27,20 @@ public interface DominionApiService {
 
   @POST("//{gameId}/plays/endphase")
   Single<Response<GameStateInfo>> endPhase();
+
+
+
+
+  @GET ("/gamestateinfo")
+  Call<GameStateInfo> getGameState();
+
+//  @POST("/gamestateinfo")
+//
+//  @POST
+//
+//  @POST
+
+
 
 
 }
