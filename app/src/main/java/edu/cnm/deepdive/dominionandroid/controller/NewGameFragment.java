@@ -15,15 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
+import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.service.DominionApiService;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,12 +44,18 @@ public class NewGameFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_game, container, false);
-//        gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
         gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
+
+        final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
+            @Override
+            public void onChanged(GameStateInfo gameStateInfo) {
+//                if (gameStateInfo.getWhatStateAmIIn() == PhaseState.INITIAL || gameStateInfo.getWhatStateAmIIn() == PhaseState.ACTING)
+                navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
+            }
+        };
+        gameViewModel.getGameStateInfo().observe(this, gameStateInfoObserver);
         return view;
     }
 
@@ -57,12 +66,8 @@ public class NewGameFragment extends Fragment implements OnClickListener {
         view.findViewById(R.id.new_game).setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         gameViewModel.startNewGame();
-        GameStateInfo info = gameViewModel.getGameStateInfoObject();
-
-        navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
     }
 }

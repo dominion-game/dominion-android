@@ -23,11 +23,11 @@ public interface DominionApiService {
   @GET("/games/gamestateinfo")
   Single<GameStateInfo> getGameStateInfo();
 
-  @POST("/games/newgame")
+  @POST("newgame")
   Single<GameStateInfo> newGame();
 
   @GET("/games/getstate")
-  Single<Response<String>> getCurrentPhaseState();
+  Single<String> getCurrentPhaseState();
 
   @POST ("/plays/{cardname}/action")
   Single<GameStateInfo> doAction(@Path ("cardname") String cardName);
