@@ -19,7 +19,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
+import edu.cnm.deepdive.dominionandroid.service.DominionApiService;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
+import java.util.HashMap;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +61,7 @@ public class NewGameFragment extends Fragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         gameViewModel.startNewGame();
+
         navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
     }
 

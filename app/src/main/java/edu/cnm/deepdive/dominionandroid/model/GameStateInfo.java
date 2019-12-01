@@ -111,4 +111,28 @@ public class GameStateInfo implements Serializable {
   public void setWhatState(String whatState) {
     this.whatState = whatState;
   }
+
+  @Override
+  public String toString() {
+    StringBuilder gameStateInfoString = new StringBuilder();
+    gameStateInfoString.append("Cards in hand: \n");
+    for (int i = 0; i < getCardsInHand().size(); i++) {
+      gameStateInfoString.append("Card [" + i + "]: " + getCardsInHand().get(i) + "\n");
+    }
+    HashMap<String, Integer> stacks = getStacks();
+    for (String stackName : stacks.keySet()) {
+      gameStateInfoString.append("Stack " + stackName + ": " + stacks.get(stackName) + "\n");
+    }
+    gameStateInfoString.append("My Victory Points: " + getMyVictoryPoints() + "\n");
+    gameStateInfoString.append("Their Victory Points: " + getTheirVictoryPoints() + "\n");
+    gameStateInfoString.append("Actions Remaining: " + getMyActionsRemaining() + "\n");
+    gameStateInfoString.append("Buys Remaining: " + getMyBuysRemaining() + "\n");
+    gameStateInfoString.append("Buying Power: " + getMyBuyingPower() + "\n");
+    List<String> otherPlayerTurn = getPlaysMadeLastTurnByOtherPlayer();
+    for (int i = 0; i < otherPlayerTurn.size(); i++) {
+      gameStateInfoString.append("Play [" + i + "]: " + otherPlayerTurn.get(i) + "\n");
+    }
+    gameStateInfoString.append("Current State: " + getWhatState() + "\n");
+    return gameStateInfoString.toString();
+  }
 }
