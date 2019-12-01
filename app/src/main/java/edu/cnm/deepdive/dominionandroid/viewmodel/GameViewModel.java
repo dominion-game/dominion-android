@@ -63,6 +63,7 @@ public class GameViewModel extends AndroidViewModel {
 
   public void processNewGameState(){
 
+
     if(gameStateInfo.body().getCardsInHand()!=null) {
       this.cardsInHand.setValue(gameStateInfo.body().getCardsInHand());
     }
