@@ -4,18 +4,15 @@ package edu.cnm.deepdive.dominionandroid.controller;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,12 +30,12 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   GameViewModel gameViewModel;
   TextView actionsText;
 
-  private String[] imageUrls = new String[]{
-      "https://pure-tundra-13659.herokuapp.com/pics/market",
-      "https://pure-tundra-13659.herokuapp.com/pics/village",
-      "https://pure-tundra-13659.herokuapp.com/pics/estate",
-      "https://pure-tundra-13659.herokuapp.com/pics/gold",
-      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
+  private String[] imageNames = new String[]{
+      "market",
+      "village",
+      "estate",
+      "gold",
+      "workshop"
   };
 
   public DoActionFragment() {
@@ -52,19 +49,17 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 //    View view = inflater.inflate(R.layout.fragment_do_action, container, false);
 
     FragmentDoActionBinding binding;
-    binding= DataBindingUtil.inflate(
+    binding = DataBindingUtil.inflate(
         inflater,R.layout.fragment_do_action, container,false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
     GameViewModel gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
-    ViewPager viewPager= view.findViewById(R.id.view_pager);
-    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
+    ViewPager viewPager= binding.viewPager;
+    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
     viewPager.setAdapter(adapter);
 
-//    Picasso.with(getContext()).load(R.drawable.dominion_logo).into(imageView);
-//    Picasso.with(getContext()).load(R.drawable.duchy).into(imageView);
     return view;
   }
 
