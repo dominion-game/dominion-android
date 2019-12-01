@@ -22,6 +22,8 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
+import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 
 /**
@@ -31,6 +33,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
   GameViewModel gameViewModel;
+  ViewPager viewPager;
   TextView actionsText;
 
   private String[] imageUrls = new String[]{
@@ -59,13 +62,20 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
-    ViewPager viewPager= view.findViewById(R.id.view_pager);
+    viewPager= view.findViewById(R.id.view_pager);
     ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
     viewPager.setAdapter(adapter);
 
 //    Picasso.with(getContext()).load(R.drawable.dominion_logo).into(imageView);
 //    Picasso.with(getContext()).load(R.drawable.duchy).into(imageView);
     return view;
+  }
+
+  void loadCards(){
+    //TODO need to load cards based on players hand...
+    for (int i = 0; i < gameViewModel.getCardsInHand().getValue().size(); i++){
+
+    }
   }
 
   @Override
@@ -81,8 +91,21 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   @Override
   public void onClick(View v) {
     switch (v.getId()){
+      case R.id.play_card:
+        //need to know what you are seeing
+        //TODO see if this actually gets the current card shown
+        int currentCardIndex = viewPager.getCurrentItem();
+        Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(currentCardIndex);
+
+        //TODO if card has "extra" cost, need to have player "select" until done.
+        //then make a card and play it
+        gameViewModel.playCard(cardToPlay);
+        if (gameViewModel.getWhatStateAmIIn().getValue() != PhaseState.ACTING){
+          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+          break;
+        }
       case R.id.end_action:
-        navController.navigate(R.id.action_doActionFragment_to_buysOptionsFragment);
+        navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         break;
       case R.id.end_turn:
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);

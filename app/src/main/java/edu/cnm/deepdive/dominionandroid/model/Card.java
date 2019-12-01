@@ -11,6 +11,14 @@ public class Card {
   @Expose
   private String cardName;
 
+  public Card(String cardName){
+    //TODO need to know about cardType... probably better to make an enum matching server
+    //should have costa
+    switch (cardName){
+      case "cellar":
+
+    }
+  }
   public String getCardType() {
     return cardType;
   }

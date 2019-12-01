@@ -1,52 +1,47 @@
-package edu.cnm.deepdive.dominionandroid.service;
+    package edu.cnm.deepdive.dominionandroid.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import edu.cnm.deepdive.dominionandroid.BuildConfig;
-import edu.cnm.deepdive.dominionandroid.model.CardSet;
-import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
-import io.reactivex.Single;
-import java.util.Optional;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+    import com.google.gson.Gson;
+    import com.google.gson.GsonBuilder;
+    import edu.cnm.deepdive.dominionandroid.model.Card;
+    import edu.cnm.deepdive.dominionandroid.model.CardSet;
+    import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
+    import io.reactivex.Single;
+    import java.util.List;
+    import java.util.Optional;
+    import retrofit2.Call;
+    import retrofit2.Response;
+    import retrofit2.Retrofit;
+    import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+    import retrofit2.converter.gson.GsonConverterFactory;
+    import retrofit2.http.Body;
+    import retrofit2.http.GET;
+    import retrofit2.http.POST;
+    import retrofit2.http.Path;
 
 public interface DominionApiService {
 
-  @GET("gamestateinfo")
-  Call<GameStateInfo> getGameStateInfo();
+  @GET("/games/gamestateinfo")
+  Single<Response<GameStateInfo>> getGameStateInfo();
 
-//  @GET("gamestateinfo")
-//  Single<GameStateInfo> newGame();
+  @POST("/games/newgame")
+  Single<Response<GameStateInfo>> newGame();
 
-  //called to create a new game
-  @POST("newgame")
-  Single<GameStateInfo> newGame();
+  @GET("/games/getstate")
+  Single<Response<String>> getCurrentPhaseState();
 
-  @POST("/get")
-  Single<GameStateInfo> itemGet();
+  @POST ("/plays/{cardname}/action")
+  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName);
 
+  @POST ("/plays/{cardname}/action")
+  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName, @Body List<Card> cards);
 
-//  @POST("/get")
-//  Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo request);
+  @POST ("/plays/{cardname}/buy")
+  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName);
 
+  @POST ("/plays/{cardname}/buy")
+  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName, @Body List<Card> cards);
 
-  @POST("/games/createorjoin")
-  Single<Response<GameStateInfo>> createOrJoin();
-
-  @POST ("/{gameId}/plays/{cardid}/action")
-  Single<Response<GameStateInfo>> doAction(@Path ("cardid") int cardId);
-
-  @POST ("/{gameId}/plays/{cardid}/buy")
-  Single<Response<GameStateInfo>> buyCard(@Path ("cardid") int cardId);
-
-  @POST("//{gameId}/plays/endphase")
+  @POST("/games/endphase")
   Single<Response<GameStateInfo>> endPhase();
 
   static DominionApiService getInstance() {
@@ -65,13 +60,9 @@ public interface DominionApiService {
       Retrofit retrofit = new Retrofit.Builder()
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create(gson))
-          .baseUrl("https://pure-tundra-13659.herokuapp.com/")
+          .baseUrl("https://pure-tundra-13659.herokuapp.com")
           .build();
       INSTANCE = retrofit.create(DominionApiService.class);
     }
-
   }
-
-
-
 }

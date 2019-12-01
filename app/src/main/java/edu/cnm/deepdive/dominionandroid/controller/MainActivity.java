@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void setupViewModel() {
     gameViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
-    getLifecycle().addObserver(gameViewModel);
+//    getLifecycle().addObserver(gameViewModel);
     // TODO see if this is necessary
 //    gameViewModel.getGameStateInfo().observe(this, this::);
     gameViewModel.getThrowable().observe(this, this::showError);

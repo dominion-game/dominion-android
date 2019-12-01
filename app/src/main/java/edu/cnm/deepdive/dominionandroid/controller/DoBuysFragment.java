@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.dominionandroid.controller;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoBuysBinding;
+import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 import io.reactivex.internal.operators.observable.ObservableNever;
 
@@ -27,6 +30,7 @@ import io.reactivex.internal.operators.observable.ObservableNever;
 public class DoBuysFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
+  private GameViewModel gameViewModel;
 
   private String[] imageUrls = new String[]{
       "https://pure-tundra-13659.herokuapp.com/pics/militia",
@@ -35,11 +39,11 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
       "https://pure-tundra-13659.herokuapp.com/pics/moat",
       "https://pure-tundra-13659.herokuapp.com/pics/workshop"
   };
+  private ViewPager viewPager;
 
   public DoBuysFragment() {
     // Required empty public constructor
   }
-
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +55,13 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
         inflater,R.layout.fragment_do_buys, container,false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
-    GameViewModel gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
+    gameViewModel = ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
-    ViewPager viewPager= view.findViewById(R.id.view_pager);
+    //TODO load all of the stacks into the pager.
+    //TODO show number of cards per stack
+    //TODO if number of cards for stack is 0, disable buy button, show grayed out
+    viewPager = view.findViewById(R.id.view_pager);
     ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
     viewPager.setAdapter(adapter);
 
@@ -70,6 +77,29 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
 
   @Override
   public void onClick(View v) {
+    switch (v.getId()){
+      case R.id.buy_card:
+        //need to know what you are seeing
+        //TODO see if this actually gets the current card shown
+        int currentStackIndex = viewPager.getCurrentItem();
+//        Card cardToBuy = new Card();
+//        cardToBuy.setCost();
+            gameViewModel.getStacks().getValue().get(currentStackIndex);
+
+        //TODO if card has "extra" cost, need to have player "select" until done.
+        //then make a card and play it
+//        gameViewModel.buyCard(cardToBuy);
+        if (gameViewModel.getWhatStateAmIIn().getValue() != PhaseState.ACTING){
+          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+          break;
+        }
+      case R.id.end_turn:
+        navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
+        break;
+    }
+//    actionsText.setBackgroundColor(Color.TRANSPARENT);
+    //TODO need to implement button functionality for play card
+
     navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
   }
 }

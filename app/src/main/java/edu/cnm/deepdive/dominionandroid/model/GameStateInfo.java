@@ -36,8 +36,7 @@ public class GameStateInfo implements Serializable {
   List<String> playsMadeLastTurnByOtherPlayer;
 
   @Expose
-  String whatState;
-
+  PhaseState whatStateAmIIn;
 
   public List<Card> getCardsInHand() {
     return cardsInHand;
@@ -104,12 +103,12 @@ public class GameStateInfo implements Serializable {
     this.playsMadeLastTurnByOtherPlayer = playsMadeLastTurnByOtherPlayer;
   }
 
-  public String getWhatState() {
-    return whatState;
+  public PhaseState getWhatStateAmIIn() {
+    return whatStateAmIIn;
   }
 
-  public void setWhatState(String whatState) {
-    this.whatState = whatState;
+  public void setWhatStateAmIIn(PhaseState whatStateAmIIn) {
+    this.whatStateAmIIn = whatStateAmIIn;
   }
 
   @Override
@@ -132,7 +131,7 @@ public class GameStateInfo implements Serializable {
     for (int i = 0; i < otherPlayerTurn.size(); i++) {
       gameStateInfoString.append("Play [" + i + "]: " + otherPlayerTurn.get(i) + "\n");
     }
-    gameStateInfoString.append("Current State: " + getWhatState() + "\n");
+    gameStateInfoString.append("Current State: " + getWhatStateAmIIn() + "\n");
     return gameStateInfoString.toString();
   }
 }

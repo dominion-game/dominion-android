@@ -30,13 +30,6 @@
     android:name="edu.cnm.deepdive.dominionandroid.controller.DoActionFragment"
     android:label="fragment_do_action"
     tools:layout="@layout/fragment_do_action">
-    <action
-      android:id="@+id/action_doActionFragment_to_buysOptionsFragment"
-      app:destination="@id/buysOptionsFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
 
     <action
       android:id="@+id/action_doActionFragment_to_turnSummaryFragment"
@@ -45,27 +38,9 @@
       app:popExitAnim="@anim/slide_out_right"
       app:enterAnim="@anim/slide_in_right"
       app:exitAnim="@anim/slide_out_left"/>
-  </fragment>
-
-  <fragment
-    android:id="@+id/buysOptionsFragment"
-    android:name="edu.cnm.deepdive.dominionandroid.controller.BuysOptionsFragment"
-    android:label="BuysOptionsFragment">
     <action
-      android:id="@+id/action_buysOptionsFragment_to_doBuysFragment"
-      app:destination="@id/doBuysFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
-
-    <action
-      android:id="@+id/action_buysOptionsFragment_to_turnSummaryFragment"
-      app:destination="@id/turnSummaryFragment"
-      app:popEnterAnim="@anim/slide_in_left"
-      app:popExitAnim="@anim/slide_out_right"
-      app:enterAnim="@anim/slide_in_right"
-      app:exitAnim="@anim/slide_out_left"/>
+      android:id="@+id/action_doActionFragment_to_doBuysFragment"
+      app:destination="@id/doBuysFragment"/>
   </fragment>
 
   <fragment

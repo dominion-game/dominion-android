@@ -64,5 +64,4 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 
         navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
     }
-
 }
