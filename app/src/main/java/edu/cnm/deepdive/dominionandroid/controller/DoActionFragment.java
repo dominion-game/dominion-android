@@ -103,7 +103,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
           break;
         }
       case R.id.end_action:
-        navController.navigate(R.id.action_doActionFragment_to_buysOptionsFragment);
+        navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         break;
       case R.id.end_turn:
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
