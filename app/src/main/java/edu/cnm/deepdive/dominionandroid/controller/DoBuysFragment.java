@@ -51,7 +51,7 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
         inflater,R.layout.fragment_do_buys, container,false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
-    GameViewModel gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
+    GameViewModel gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
     ViewPager viewPager= view.findViewById(R.id.view_pager);

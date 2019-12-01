@@ -22,8 +22,16 @@ public interface DominionApiService {
   @GET("gamestateinfo")
   Call<GameStateInfo> getGameStateInfo();
 
+//  @GET("gamestateinfo")
+//  Single<GameStateInfo> newGame();
+
+  //called to create a new game
+  @POST("newgame")
+  Single<GameStateInfo> newGame();
+
   @POST("/get")
-  Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo gameStateInfo);
+  Single<GameStateInfo> itemGet();
+
 
 //  @POST("/get")
 //  Single<Response<GameStateInfo>> itemGet(@Body GameStateInfo request);

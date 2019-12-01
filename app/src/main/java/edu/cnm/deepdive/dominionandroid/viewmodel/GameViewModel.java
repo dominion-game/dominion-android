@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -19,12 +21,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class GameViewModel extends AndroidViewModel {
+public class GameViewModel extends AndroidViewModel implements LifecycleObserver {
 
   MutableLiveData<GameStateInfo> gameStateInfo;
-
-
-
   MutableLiveData<List<Card>> cardsInHand;
   MutableLiveData<List<Card>> cardsInDiscard;
   MutableLiveData<List<Card>> cardsInDrawPile;
@@ -55,13 +54,20 @@ public class GameViewModel extends AndroidViewModel {
     executor = Executors.newSingleThreadExecutor();
   }
 
-//  public void refreshGameStateInfo(){
-//    pending.add(
-//        apiService.itemGet()
-//        .subscribeOn(Schedulers.io())
-//        .subscribe(this.gameStateInfo::postValue, this.throwable::postValue)
-//    );
-//  }
+  public void startNewGame() {
+    apiService.newGame()
+        .subscribeOn(Schedulers.io())
+        .subscribe(this.gameStateInfo::postValue, this.throwable::postValue);
+  }
+
+  public MutableLiveData<GameStateInfo> getGameStateInfo() {
+    return gameStateInfo;
+  }
+
+  public void setGameStateInfo(
+      MutableLiveData<GameStateInfo> gameStateInfo) {
+    this.gameStateInfo = gameStateInfo;
+  }
 
   public MutableLiveData<List<Card>> getCardsInHand() {
     return cardsInHand;

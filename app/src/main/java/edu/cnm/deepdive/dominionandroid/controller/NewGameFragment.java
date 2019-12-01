@@ -15,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +27,7 @@ import edu.cnm.deepdive.dominionandroid.R;
 public class NewGameFragment extends Fragment implements OnClickListener {
 
     NavController navController= null;
-
+    GameViewModel gameViewModel;
 
     public NewGameFragment() {
         // Required empty public constructor
@@ -35,7 +37,10 @@ public class NewGameFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_game, container, false);
+//        gameViewModel= ViewModelProviders.of(this).get(GameViewModel.class);
+        gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
+        return view;
     }
 
     @Override
@@ -48,6 +53,8 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        gameViewModel.startNewGame();
         navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
     }
+
 }

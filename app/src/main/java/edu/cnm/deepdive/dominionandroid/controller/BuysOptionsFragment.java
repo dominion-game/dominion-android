@@ -51,7 +51,7 @@ public class BuysOptionsFragment extends Fragment implements OnClickListener {
         inflater, R.layout.fragment_buys_options, container, false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
-    GameViewModel gameViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
+    GameViewModel gameViewModel = ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
     server_data = view.findViewById(R.id.server_data);
