@@ -21,28 +21,28 @@
 public interface DominionApiService {
 
   @GET("/games/gamestateinfo")
-  Single<Response<GameStateInfo>> getGameStateInfo();
+  Single<GameStateInfo> getGameStateInfo();
 
   @POST("/games/newgame")
-  Single<Response<GameStateInfo>> newGame();
+  Single<GameStateInfo> newGame();
 
   @GET("/games/getstate")
   Single<Response<String>> getCurrentPhaseState();
 
   @POST ("/plays/{cardname}/action")
-  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName);
+  Single<GameStateInfo> doAction(@Path ("cardname") String cardName);
 
   @POST ("/plays/{cardname}/action")
-  Single<Response<GameStateInfo>> doAction(@Path ("cardname") String cardName, @Body List<Card> cards);
+  Single<GameStateInfo> doAction(@Path ("cardname") String cardName, @Body List<Card> cards);
 
   @POST ("/plays/{cardname}/buy")
-  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName);
+  Single<GameStateInfo> buyCard(@Path ("cardname") String cardName);
 
   @POST ("/plays/{cardname}/buy")
-  Single<Response<GameStateInfo>> buyCard(@Path ("cardname") String cardName, @Body List<Card> cards);
+  Single<GameStateInfo> buyCard(@Path ("cardname") String cardName, @Body List<Card> cards);
 
   @POST("/games/endphase")
-  Single<Response<GameStateInfo>> endPhase();
+  Single<GameStateInfo> endPhase();
 
   static DominionApiService getInstance() {
     return InstanceHolder.INSTANCE;

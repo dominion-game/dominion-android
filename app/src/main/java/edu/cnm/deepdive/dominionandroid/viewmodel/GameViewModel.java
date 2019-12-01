@@ -33,13 +33,13 @@ public class GameViewModel extends AndroidViewModel {
   private MutableLiveData<Integer> theirVictoryPoints;
   private MutableLiveData<Integer> myActionsRemaining;
   private MutableLiveData<Integer> myBuysRemaining;
-  private  MutableLiveData<Integer> myBuyingPower;
+  private MutableLiveData<Integer> myBuyingPower;
   private MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack;
   private MutableLiveData<HashMap<String, Integer>> stacks;
   private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer;
   private MutableLiveData<PhaseState> whatStateAmIIn;
-  private Response<GameStateInfo> gameStateInfo;
-  private final MutableLiveData<Response<GameStateInfo>> gameStateInfoLiveData = new MutableLiveData<>();
+  //  private GameStateInfo gameStateInfo;
+  private final MutableLiveData<GameStateInfo> gameStateInfo = new MutableLiveData<>();
   private final DominionApiService apiService = DominionApiService.getInstance();
   private ExecutorService executor;
   private CompositeDisposable pending = new CompositeDisposable();
@@ -62,115 +62,127 @@ public class GameViewModel extends AndroidViewModel {
   }
 
 
-  public void processNewGameState(){
-    if(gameStateInfo.body().getCardsInHand()!=null) {
-      this.cardsInHand.setValue(gameStateInfo.body().getCardsInHand());
+  public void processNewGameState() {
+    GameStateInfo info = gameStateInfo.getValue();
+    if (info.getCardsInHand() != null) {
+      this.cardsInHand.setValue(info.getCardsInHand());
     }
 
-    if(gameStateInfo.body().getPlaysMadeLastTurnByOtherPlayer()!=null) {
-      this.playsMadeLastTurnByOtherPlayer.setValue(gameStateInfo.body().getPlaysMadeLastTurnByOtherPlayer());
+    if (info.getPlaysMadeLastTurnByOtherPlayer() != null) {
+      this.playsMadeLastTurnByOtherPlayer.setValue(info.getPlaysMadeLastTurnByOtherPlayer());
     }
-    if(gameStateInfo.body().getStacks()!=null) {
-      this.stacks.setValue(gameStateInfo.body().getStacks());
+    if (info.getStacks() != null) {
+      this.stacks.setValue(info.getStacks());
     }
-    if(gameStateInfo.body().getWhatStateAmIIn()!=null) {
-      this.whatStateAmIIn.setValue(gameStateInfo.body().getWhatStateAmIIn());
+    if (info.getWhatStateAmIIn() != null) {
+      this.whatStateAmIIn.setValue(info.getWhatStateAmIIn());
     }
-    this.myBuysRemaining.setValue(gameStateInfo.body().getMyBuysRemaining());
-    this.myActionsRemaining.setValue(gameStateInfo.body().getMyActionsRemaining());
-    this.myBuyingPower.setValue(gameStateInfo.body().getMyBuyingPower());
-    this.myVictoryPoints.setValue(gameStateInfo.body().getMyBuyingPower());
-    this.theirVictoryPoints.setValue(gameStateInfo.body().getTheirVictoryPoints());
+    this.myBuysRemaining.setValue(info.getMyBuysRemaining());
+    this.myActionsRemaining.setValue(info.getMyActionsRemaining());
+    this.myBuyingPower.setValue(info.getMyBuyingPower());
+    this.myVictoryPoints.setValue(info.getMyBuyingPower());
+    this.theirVictoryPoints.setValue(info.getTheirVictoryPoints());
   }
 
-  public void startNewGame(){
+  public void startNewGame() {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     pending.add(apiService.newGame()
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
     //TODO this is null?
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
 
   @SuppressLint("CheckResult")
-  public void playCard(Card card){
+  public void playCard(Card card) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     pending.add(apiService.doAction(card.getCardName())
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
+
   @SuppressLint("CheckResult")
-  public void playCard(Card card, List<Card> cards){
+  public void playCard(Card card, List<Card> cards) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     pending.add(apiService.doAction(card.getCardName(), cards)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
+
   @SuppressLint("CheckResult")
-  public void buyCard(Card card){
+  public void buyCard(Card card) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     pending.add(apiService.buyCard(card.getCardName())
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
+
   @SuppressLint("CheckResult")
-  public void buyCard(Card card, List<Card> cards){
+  public void buyCard(Card card, List<Card> cards) {
     // String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     // Log.d("Oauth2.0 token", token);
     pending.add(apiService.buyCard(card.getCardName(), cards)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
-  @SuppressLint("CheckResult")
-  public void getGameStateInfo(){
+
+  public GameStateInfo getGameStateInfoObject() {
+    return gameStateInfo.getValue();
+  }
+
+    @SuppressLint("CheckResult")
+  public void getGameStateInfo() {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
     pending.add(apiService.getGameStateInfo()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
-            this.gameStateInfoLiveData::postValue,
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
         ));
-
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
   }
 
-  public void endPhase(){
+  public void endPhase() {
     GoogleSignInAccount account = this.account.getValue();
     if (account != null) {
       endPhase(account);
@@ -178,18 +190,21 @@ public class GameViewModel extends AndroidViewModel {
       //gameStateInfoLiveData.setValue(Collections.EMPTY_LIST);
     }
   }
+
   @SuppressLint("CheckResult")
-  private void endPhase(GoogleSignInAccount account){
+  private void endPhase(GoogleSignInAccount account) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    apiService.endPhase()
+    pending.add(
+        apiService.endPhase()
         .subscribeOn(Schedulers.io())
         .subscribe(
-            (gameStateInfoResponse) -> this.gameStateInfoLiveData.postValue(gameStateInfoResponse),
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
             this.throwable::postValue
-        );
-    gameStateInfo = gameStateInfoLiveData.getValue();
-    processNewGameState();
+        ));
   }
 
 
