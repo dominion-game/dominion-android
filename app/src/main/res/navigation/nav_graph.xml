@@ -11,8 +11,8 @@
     android:label="fragment_new_game"
     tools:layout="@layout/fragment_new_game">
     <action
-      android:id="@+id/action_newGameFragment_to_doActionFragment"
-      app:destination="@id/doActionFragment"/>
+      android:id="@+id/action_newGameFragment_to_waiting"
+      app:destination="@id/waiting"/>
   </fragment>
 
   <fragment
@@ -54,6 +54,15 @@
       app:popExitAnim="@anim/slide_out_right"
       app:enterAnim="@anim/slide_in_right"
       app:exitAnim="@anim/slide_out_left"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/waiting"
+    android:name="edu.cnm.deepdive.dominionandroid.controller.WaitingFragment"
+    android:label="WaitingFragment">
+    <action
+      android:id="@+id/action_waiting_to_doActionFragment"
+      app:destination="@id/doActionFragment"/>
   </fragment>
 
 </navigation>

@@ -51,8 +51,13 @@ public class NewGameFragment extends Fragment implements OnClickListener {
         final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
             @Override
             public void onChanged(GameStateInfo gameStateInfo) {
+//                if (gameStateInfo.getWhatStateAmIIn().equals(PhaseState.INITIAL)){
+                    //TODO potentially load progress bar
+
+//                    navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
+//                }
 //                if (gameStateInfo.getWhatStateAmIIn() == PhaseState.INITIAL || gameStateInfo.getWhatStateAmIIn() == PhaseState.ACTING)
-                navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
+//                navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
             }
         };
         gameViewModel.getGameStateInfo().observe(this, gameStateInfoObserver);

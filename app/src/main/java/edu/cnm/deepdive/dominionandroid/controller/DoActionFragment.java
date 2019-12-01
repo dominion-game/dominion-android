@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 
@@ -65,6 +67,19 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     viewPager= binding.viewPager;
     ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
     viewPager.setAdapter(adapter);
+
+    final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
+      @Override
+      public void onChanged(GameStateInfo gameStateInfo) {
+        //since we watch gameStateInfo and everyone else does too, we only respond if it is our state
+        if (gameStateInfo.getWhatStateAmIIn().equals(PhaseState.ACTING)) {
+          //reset image names to be from gameStateInfo
+
+          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+        }
+      }
+    };
+    gameViewModel.getGameStateInfo().observe(this, gameStateInfoObserver);
 
     return view;
   }

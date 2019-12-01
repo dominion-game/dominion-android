@@ -5,8 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import edu.cnm.deepdive.dominionandroid.model.Card;
@@ -24,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import retrofit2.Response;
 
-public class GameViewModel extends AndroidViewModel {
+public class GameViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private MutableLiveData<List<Card>> cardsInHand = new MutableLiveData<>() ;
   private MutableLiveData<List<Card>> cardsInDiscard = new MutableLiveData<>();
@@ -56,6 +59,11 @@ public class GameViewModel extends AndroidViewModel {
     executor = Executors.newSingleThreadExecutor();
   }
 
+  @OnLifecycleEvent(Event.ON_STOP)
+  private void clearPending() {
+    pending.clear();
+  }
+
   public void setAccount(GoogleSignInAccount account) {
     this.account.setValue(account);
     getGameStateInfo();
@@ -67,23 +75,23 @@ public class GameViewModel extends AndroidViewModel {
     if(info == null)
       return;
     if (info.getCardsInHand() != null) {
-      this.cardsInHand.setValue(info.getCardsInHand());
+      this.cardsInHand.postValue(info.getCardsInHand());
     }
 
     if (info.getPlaysMadeLastTurnByOtherPlayer() != null) {
-      this.playsMadeLastTurnByOtherPlayer.setValue(info.getPlaysMadeLastTurnByOtherPlayer());
+      this.playsMadeLastTurnByOtherPlayer.postValue(info.getPlaysMadeLastTurnByOtherPlayer());
     }
     if (info.getStacks() != null) {
-      this.stacks.setValue(info.getStacks());
+      this.stacks.postValue(info.getStacks());
     }
     if (info.getWhatStateAmIIn() != null) {
-      this.whatStateAmIIn.setValue(info.getWhatStateAmIIn());
+      this.whatStateAmIIn.postValue(info.getWhatStateAmIIn());
     }
-    this.myBuysRemaining.setValue(info.getMyBuysRemaining());
-    this.myActionsRemaining.setValue(info.getMyActionsRemaining());
-    this.myBuyingPower.setValue(info.getMyBuyingPower());
-    this.myVictoryPoints.setValue(info.getMyBuyingPower());
-    this.theirVictoryPoints.setValue(info.getTheirVictoryPoints());
+    this.myBuysRemaining.postValue(info.getMyBuysRemaining());
+    this.myActionsRemaining.postValue(info.getMyActionsRemaining());
+    this.myBuyingPower.postValue(info.getMyBuyingPower());
+    this.myVictoryPoints.postValue(info.getMyBuyingPower());
+    this.theirVictoryPoints.postValue(info.getTheirVictoryPoints());
   }
 
   public void startNewGame() {
@@ -302,7 +310,7 @@ public class GameViewModel extends AndroidViewModel {
     this.numberOfCardsRemainingInEachStack = numberOfCardsRemainingInEachStack;
   }
 
-  public MutableLiveData<List<String>> getPlaysMadeLastTurnByOtherPlayer() {
+  public LiveData<List<String>> getPlaysMadeLastTurnByOtherPlayer() {
     return playsMadeLastTurnByOtherPlayer;
   }
 
@@ -311,7 +319,7 @@ public class GameViewModel extends AndroidViewModel {
     this.playsMadeLastTurnByOtherPlayer = playsMadeLastTurnByOtherPlayer;
   }
 
-  public MutableLiveData<PhaseState> getWhatStateAmIIn() {
+  public LiveData<PhaseState> getWhatStateAmIIn() {
     return whatStateAmIIn;
   }
 
@@ -320,7 +328,7 @@ public class GameViewModel extends AndroidViewModel {
     this.whatStateAmIIn = whatStateAmIIn;
   }
 
-  public MutableLiveData<Throwable> getThrowable() {
+  public LiveData<Throwable> getThrowable() {
     return throwable;
   }
 }
