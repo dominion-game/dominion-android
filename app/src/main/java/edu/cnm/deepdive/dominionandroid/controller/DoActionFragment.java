@@ -36,12 +36,12 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   ViewPager viewPager;
   TextView actionsText;
 
-  private String[] imageUrls = new String[]{
-      "https://pure-tundra-13659.herokuapp.com/pics/market",
-      "https://pure-tundra-13659.herokuapp.com/pics/village",
-      "https://pure-tundra-13659.herokuapp.com/pics/estate",
-      "https://pure-tundra-13659.herokuapp.com/pics/gold",
-      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
+  private String[] imageNames = new String[]{
+      "market",
+      "village",
+      "estate",
+      "gold",
+      "workshop"
   };
 
   public DoActionFragment() {
@@ -55,19 +55,17 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 //    View view = inflater.inflate(R.layout.fragment_do_action, container, false);
 
     FragmentDoActionBinding binding;
-    binding= DataBindingUtil.inflate(
+    binding = DataBindingUtil.inflate(
         inflater,R.layout.fragment_do_action, container,false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
     gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
-    viewPager= view.findViewById(R.id.view_pager);
-    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
+    viewPager= binding.viewPager;
+    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
     viewPager.setAdapter(adapter);
 
-//    Picasso.with(getContext()).load(R.drawable.dominion_logo).into(imageView);
-//    Picasso.with(getContext()).load(R.drawable.duchy).into(imageView);
     return view;
   }
 
@@ -105,7 +103,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
           break;
         }
       case R.id.end_action:
-        navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+        navController.navigate(R.id.action_doActionFragment_to_buysOptionsFragment);
         break;
       case R.id.end_turn:
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
