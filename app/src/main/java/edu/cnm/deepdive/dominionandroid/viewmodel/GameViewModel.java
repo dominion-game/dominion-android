@@ -68,6 +68,11 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     getGameStateInfo();
   }
 
+  public void setShowSelectCard(boolean toShow){
+    GameStateInfo info = gameStateInfo.getValue();
+    info.setShowSelectCard(toShow);
+    gameStateInfo.postValue(info);
+  }
 
   public void processNewGameState() {
     GameStateInfo info = gameStateInfo.getValue();
@@ -109,10 +114,10 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   @SuppressLint("CheckResult")
-  public void playCard(Card card) {
+  public void playCard(String cardName) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.doAction(card.getCardName())
+    pending.add(apiService.doAction(cardName)
         .subscribeOn(Schedulers.io())
         .subscribe(
             (info) -> {
@@ -124,10 +129,10 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   @SuppressLint("CheckResult")
-  public void playCard(Card card, List<Card> cards) {
+  public void playCard(String cardName, List<String> extraCardNames) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.doAction(card.getCardName(), cards)
+    pending.add(apiService.doAction(cardName, extraCardNames)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(

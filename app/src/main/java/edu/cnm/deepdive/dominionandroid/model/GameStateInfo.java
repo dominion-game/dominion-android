@@ -40,6 +40,8 @@ public class GameStateInfo implements Serializable {
       @SerializedName("whatState")
   PhaseState whatStateAmIIn;
 
+  boolean showSelectCard;
+
   public boolean debugging = true;
 
   public List<Card> getCardsInHand() {
@@ -130,6 +132,14 @@ public class GameStateInfo implements Serializable {
 
   public void setWhatStateAmIIn(PhaseState whatStateAmIIn) {
     this.whatStateAmIIn = whatStateAmIIn;
+  }
+
+  public boolean isShowSelectCard() {
+    return showSelectCard;
+  }
+
+  public void setShowSelectCard(boolean showSelectCard) {
+    this.showSelectCard = showSelectCard;
   }
 
   @Override

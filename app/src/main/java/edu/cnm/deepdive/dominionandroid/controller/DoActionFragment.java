@@ -4,18 +4,15 @@ package edu.cnm.deepdive.dominionandroid.controller;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -28,6 +25,8 @@ import edu.cnm.deepdive.dominionandroid.model.Card.CardType;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +36,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   NavController navController = null;
   GameViewModel gameViewModel;
   ViewPager viewPager;
+  ViewPagerAdapter adapter;
   TextView actionsText;
 
   //  private String[] imageNames = new String[]{
@@ -47,6 +47,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 //      "workshop"
 //  };
   private String[] imageNames;
+  private int cardIndexToPlay;
 
   public DoActionFragment() {
     // Required empty public constructor
@@ -77,7 +78,9 @@ public class DoActionFragment extends Fragment implements OnClickListener {
           //reset image names to be from gameStateInfo
           imageNames = gameStateInfo.getCardStringsInHand();
 
-          ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), imageNames);
+//          ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), imageNames, gameStateInfo.isShowSelectCard());
+          adapter = new ViewPagerAdapter(getContext(), imageNames,
+              gameStateInfo.isShowSelectCard());
           viewPager.setAdapter(adapter);
 //          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         }
@@ -104,6 +107,12 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       case R.id.play_card:
         playCurrentCard();
         break;
+//      case R.id.discard_selected_cards:
+//        discardCards();
+//        break;
+//      case R.id.trash_selected_card:
+//        trashCard();
+//        break;
       case R.id.end_action:
         navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         break;
@@ -115,17 +124,59 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     //TODO need to implement button functionality for play card
   }
 
-  private void playCurrentCard(){
+  private void playCurrentCard() {
     //TODO see if this actually gets the current card shown
-    int currentCardIndex = viewPager.getCurrentItem();
-    Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(currentCardIndex);
-    if (cardToPlay.getCardType() == CardType.CELLAR ||
-        cardToPlay.getCardType() == CardType.MINE ||
-        cardToPlay.getCardType() == CardType.REMODEL){
-      //TODO if card has "extra" cost, need to have player "select" until done.
+    cardIndexToPlay = viewPager.getCurrentItem();
+    Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(cardIndexToPlay);
+    if (cardToPlay.getCardType() == CardType.CELLAR) {
+      //TODO display "Discard Selected Card(s)" Button
+      //TODO hide ALL other buttons
       //switch fragment button "Select Checkbox" on
+      gameViewModel.setShowSelectCard(true);
+    } else if (cardToPlay.getCardType() == CardType.MINE ||
+        cardToPlay.getCardType() == CardType.DUCHY || //TODO TAKE OUT DUCHY!!!
+        cardToPlay.getCardType() == CardType.REMODEL) {
+      //TODO display "Trash Selected Card" Button
+      //TODO hide ALL other buttons
+      //switch fragment button "Select Checkbox" on
+      gameViewModel.setShowSelectCard(true);
+    } else {
+      gameViewModel.playCard(cardToPlay.getCardName());
     }
-    //then make a card and play it
-    gameViewModel.playCard(cardToPlay);
+  }
+
+  private void discardCards() {
+    //TODO get selected cards
+    List<String> selectedCards = new ArrayList<>();
+    List<Card> cardsInHand = gameViewModel.getCardsInHand().getValue();
+    for (int i = 0; i < cardsInHand.size(); i++) {
+      if (cardIndexToPlay != i && //do not allow them to discard the card they are playing...
+          adapter.isChecked(i)) {
+        selectedCards.add(cardsInHand.get(i).getCardName());
+      }
+    }
+    gameViewModel.playCard(cardsInHand.get(cardIndexToPlay).getCardName(), selectedCards);
+    //TODO display "Discard Selected Card(s)" Button
+    //TODO hide ALL other buttons
+  }
+
+  private void trashCard() {
+    //TODO get selected card
+    //TODO get selected cards
+    List<String> selectedCards = new ArrayList<>();
+    List<Card> cardsInHand = gameViewModel.getCardsInHand().getValue();
+    for (int i = 0; i < cardsInHand.size(); i++) {
+      if (cardIndexToPlay != i && //do not allow them to discard the card they are playing...
+          adapter.isChecked(i)) {
+        selectedCards.add(cardsInHand.get(i).getCardName());
+      }
+    }
+    if (selectedCards.size() != 1) {
+      //TODO display YOU MUST SELECT ONLY ONE AND ONLY CARD TO TRASH message
+    } else {
+      gameViewModel.playCard(cardsInHand.get(cardIndexToPlay).getCardName(), selectedCards);
+      //TODO display "Trash Selected Card" Button
+      //TODO hide ALL other buttons
+    }
   }
 }

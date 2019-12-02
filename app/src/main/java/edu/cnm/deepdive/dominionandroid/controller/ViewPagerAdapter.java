@@ -18,9 +18,9 @@ public class ViewPagerAdapter extends PagerAdapter {
   private final boolean showSelect;
   private boolean[] selected;
 
-  public ViewPagerAdapter(Context context, String[] imageNames) { // , boolean discarding) {
+  public ViewPagerAdapter(Context context, String[] imageNames, boolean showSelect) {
     this.context = context;
-    this.showSelect = true; //discarding;
+    this.showSelect = showSelect;
     imageIds = new int[imageNames.length];
     selected = new boolean[imageNames.length];
     Resources res = context.getResources();
@@ -68,5 +68,4 @@ public class ViewPagerAdapter extends PagerAdapter {
   public boolean isChecked(int position) {
     return selected[position];
   }
-
 }

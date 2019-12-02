@@ -33,7 +33,7 @@ public interface DominionApiService {
   Single<GameStateInfo> doAction(@Path ("cardname") String cardName);
 
   @POST ("/plays/{cardname}/action")
-  Single<GameStateInfo> doAction(@Path ("cardname") String cardName, @Body List<Card> cards);
+  Single<GameStateInfo> doAction(@Path ("cardname") String cardName, @Body List<String> cards);
 
   @POST ("/plays/{cardname}/buy")
   Single<GameStateInfo> buyCard(@Path ("cardname") String cardName);

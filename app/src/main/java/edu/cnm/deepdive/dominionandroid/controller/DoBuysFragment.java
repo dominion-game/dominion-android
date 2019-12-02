@@ -76,7 +76,7 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
           //reset image names to be from gameStateInfo
           stackStrings = gameStateInfo.getStackStrings();
 
-          ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), stackStrings);
+          ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), stackStrings, false);
           viewPager.setAdapter(adapter);
         }
       }
