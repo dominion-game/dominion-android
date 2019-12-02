@@ -56,11 +56,11 @@ public class ViewPagerAdapter extends PagerAdapter {
         (buttonView, isChecked) -> selected[position] = isChecked);
     discardSelection.setVisibility(discarding ? View.VISIBLE : View.GONE);
     container.addView(layout);
-//    imageView.setImageResource(imageIds[position]);
-    Picasso.get()
-        .load(imageIds[position])
-        .fit()
-        .into(imageView);
+    imageView.setImageResource(imageIds[position]);
+//    Picasso.get()
+//        .load(imageIds[position])
+//        .fit()
+//        .into(imageView);
     return layout;
   }
 

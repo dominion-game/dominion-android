@@ -38,13 +38,14 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   ViewPager viewPager;
   TextView actionsText;
 
-  private String[] imageNames = new String[]{
-      "copper",
-      "village",
-      "militia",
-      "gold",
-      "workshop"
-  };
+//  private String[] imageNames = new String[]{
+//      "copper",
+//      "village",
+//      "militia",
+//      "gold",
+//      "workshop"
+//  };
+  private String[] imageNames;
 
   public DoActionFragment() {
     // Required empty public constructor
@@ -65,17 +66,18 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     binding.setViewModel(gameViewModel);
 
     viewPager= binding.viewPager;
-    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
-    viewPager.setAdapter(adapter);
 
     final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
       @Override
       public void onChanged(GameStateInfo gameStateInfo) {
         //since we watch gameStateInfo and everyone else does too, we only respond if it is our state
-        if (gameStateInfo.getWhatStateAmIIn().equals(PhaseState.ACTING)) {
+        if (gameStateInfo.debugging || gameStateInfo.getWhatStateAmIIn().equals(PhaseState.ACTING)) {
           //reset image names to be from gameStateInfo
+          imageNames = gameStateInfo.getCardStringsInHand();
 
-          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+          ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
+          viewPager.setAdapter(adapter);
+//          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         }
       }
     };

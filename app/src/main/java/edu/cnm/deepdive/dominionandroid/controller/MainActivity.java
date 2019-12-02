@@ -73,23 +73,18 @@ public class MainActivity extends AppCompatActivity {
     gameViewModel.getWhatStateAmIIn().observe(this, (state) -> {
       switch (state) {
         case INITIAL:
-//          Navigation.findNavController(this, R.id.newGameFragment).navigate(R.id.waiting);
           navController.navigate(R.id.action_newGameFragment_to_waiting);
           break;
-        case DISCARDING:
-//          Navigation.findNavController(this, R.id.waiting).navigate(R.id.doActionFragment);
-          navController.navigate(R.id.action_waiting_to_doActionFragment);
+        case PLAYER_1_DISCARDING:
+          navController.navigate(R.id.action_newGameFragment_to_doActionFragment2);
           break;
         case ACTING:
-//          Navigation.findNavController(this, R.id.waiting).navigate(R.id.doActionFragment);
           navController.navigate(R.id.action_waiting_to_doActionFragment);
           break;
         case BUYING:
-//          Navigation.findNavController(this, R.id.doActionFragment).navigate(R.id.doBuysFragment);
           navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
           break;
         case ENDING_TURN:
-//          Navigation.findNavController(this, R.id.doBuysFragment).navigate(R.id.turnSummaryFragment);
           navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
           break;
         default:
