@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -31,7 +32,10 @@ public class GameStateInfo implements Serializable {
   int myBuyingPower;
 
   @Expose
-  HashMap<String, Integer> stacks;
+  boolean wasAttacked;
+
+  @Expose
+  LinkedHashMap<String, Integer> stacks;
 
   @Expose
   List<String> playsMadeLastTurnByOtherPlayer;
@@ -100,7 +104,7 @@ public class GameStateInfo implements Serializable {
     this.myBuyingPower = myBuyingPower;
   }
 
-  public HashMap<String, Integer> getStacks() {
+  public LinkedHashMap<String, Integer> getStacks() {
     return stacks;
   }
 
@@ -113,7 +117,7 @@ public class GameStateInfo implements Serializable {
     return stackStrings;
   }
 
-  public void setStacks(HashMap<String, Integer> stacks) {
+  public void setStacks(LinkedHashMap<String, Integer> stacks) {
     this.stacks = stacks;
   }
 

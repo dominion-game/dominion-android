@@ -22,6 +22,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   private MutableLiveData<Integer> myBuysRemaining = new MutableLiveData<>();
   private MutableLiveData<Integer> myBuyingPower = new MutableLiveData<>();
   private MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack = new MutableLiveData<>();
-  private MutableLiveData<HashMap<String, Integer>> stacks = new MutableLiveData<>();
+  private MutableLiveData<LinkedHashMap<String, Integer>> stacks = new MutableLiveData<>();
   private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer = new MutableLiveData<>();
   private MutableLiveData<PhaseState> whatStateAmIIn = new MutableLiveData<>();
   private final MutableLiveData<GameStateInfo> gameStateInfo = new MutableLiveData<>();
@@ -241,12 +242,12 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
 
-  public MutableLiveData<HashMap<String, Integer>> getStacks() {
+  public MutableLiveData<LinkedHashMap<String, Integer>> getStacks() {
     return stacks;
   }
 
   public void setStacks(
-      MutableLiveData<HashMap<String, Integer>> stacks) {
+      MutableLiveData<LinkedHashMap<String, Integer>> stacks) {
     this.stacks = stacks;
   }
 

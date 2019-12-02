@@ -50,12 +50,15 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 //      "gold",
 //      "workshop"
 //  };
+
   private String[] imageNames;
   private int cardIndexToPlay;
 
   public DoActionFragment() {
     // Required empty public constructor
   }
+
+
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,7 +115,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       view.findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
       view.findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
       view.findViewById(R.id.discard).setVisibility(View.VISIBLE);
-      Snackbar.make(view,"discard down to 3 cards",Snackbar.LENGTH_LONG).show();
+      Snackbar.make(view,"discard down to 3 cards",Snackbar.LENGTH_SHORT).show();
     }
 
 

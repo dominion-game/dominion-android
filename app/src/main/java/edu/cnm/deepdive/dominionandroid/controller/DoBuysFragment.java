@@ -102,7 +102,7 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
         int currentStackIndex = viewPager.getCurrentItem();
 //        Card cardToBuy = new Card();
 //        cardToBuy.setCost();
-            gameViewModel.getStacks().getValue().get(currentStackIndex);
+            gameViewModel.getStacks().getValue().keySet().to;
 
         //TODO if card has "extra" cost, need to have player "select" until done.
         //then make a card and play it
@@ -112,13 +112,12 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
           break;
         }
       case R.id.end_turn:
-        navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
+        navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
         break;
     }
 //    actionsText.setBackgroundColor(Color.TRANSPARENT);
     //TODO need to implement button functionality for play card
 
-    navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
   }
 }
     //TODO implement "Buy Card" button
