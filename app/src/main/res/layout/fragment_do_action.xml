@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android">
 
   <data>
@@ -10,10 +11,67 @@
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="#615757">
+
+<!--    <TextView-->
+<!--      android:id="@+id/actions"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"-->
+<!--      android:background="@color/colorAccent"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toStartOf="@+id/buys"-->
+<!--      app:layout_constraintStart_toStartOf="parent"-->
+<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"-->
+<!--      app:layout_constraintVertical_bias="1.0"/>-->
+<!--&lt;!&ndash;    android:text="@{viewModel.myActionsRemaining}"&ndash;&gt;-->
+
+
+<!--    <TextView-->
+<!--      android:id="@+id/buys"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:text="Buys"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toStartOf="@+id/gold"-->
+<!--      app:layout_constraintStart_toEndOf="@id/actions"-->
+<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
+
+<!--    <TextView-->
+<!--      android:id="@+id/gold"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:text="Gold"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toEndOf="parent"-->
+<!--      app:layout_constraintStart_toEndOf="@id/buys"-->
+<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
+
+    <androidx.viewpager.widget.ViewPager
+      xmlns:tools="http://schemas.android.com/tools"
+      android:id="@+id/view_pager"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@id/players_hand"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:context=".controller.DoActionFragment"
+      android:paddingTop="16dp"
+      android:paddingBottom="16dp"
+      android:paddingLeft="36dp"
+      android:paddingRight="36dp"/>
 
     <TextView
       android:id="@+id/players_hand"
@@ -23,67 +81,11 @@
       android:textSize="32dp"
       android:textAlignment="center"
       android:textColor="#FFFFFF"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@+id/buys"
+      app:layout_constraintTop_toBottomOf="@id/view_pager"
+      app:layout_constraintBottom_toTopOf="@+id/end_action"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-      android:id="@+id/actions"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
-      android:background="@color/colorAccent"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toStartOf="@+id/buys"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/players_hand"
-      app:layout_constraintVertical_bias="1.0"/>
-<!--    android:text="@{viewModel.myActionsRemaining}"-->
 
-
-    <TextView
-      android:id="@+id/buys"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:text="Buys"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toStartOf="@+id/gold"
-      app:layout_constraintStart_toEndOf="@id/actions"
-      app:layout_constraintTop_toBottomOf="@id/players_hand"/>
-
-    <TextView
-      android:id="@+id/gold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:text="Gold"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/buys"
-      app:layout_constraintTop_toBottomOf="@id/players_hand"/>
-
-    <androidx.viewpager.widget.ViewPager
-      xmlns:tools="http://schemas.android.com/tools"
-      android:id="@+id/view_pager"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@id/end_turn"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/buys"
-      tools:context=".controller.DoActionFragment"
-      android:paddingTop="16dp"
-      android:paddingBottom="16dp"
-      android:paddingLeft="36dp"
-      android:paddingRight="36dp"/>
 
     <Button
       android:id="@+id/play_card"
@@ -100,8 +102,9 @@
       android:textSize="20sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/end_action"
+      app:layout_constraintHorizontal_chainStyle="spread"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/view_pager"/>
+      app:layout_constraintTop_toBottomOf="@id/players_hand"/>
 
     <Button
       android:id="@+id/end_action"
@@ -120,7 +123,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/end_turn"
       app:layout_constraintStart_toEndOf="@id/play_card"
-      app:layout_constraintTop_toBottomOf="@+id/view_pager"/>
+      app:layout_constraintTop_toBottomOf="@id/players_hand"/>
 
     <Button
       android:id="@+id/end_turn"
@@ -139,7 +142,20 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/end_action"
-      app:layout_constraintTop_toBottomOf="@+id/view_pager"/>
+      app:layout_constraintTop_toBottomOf="@+id/players_hand"/>
+
+    <Button
+      android:id="@+id/discard_cards"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Discard Selected Cards"
+      android:textSize="24sp"
+      android:visibility="invisible"
+      app:layout_constraintTop_toBottomOf="@id/players_hand"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

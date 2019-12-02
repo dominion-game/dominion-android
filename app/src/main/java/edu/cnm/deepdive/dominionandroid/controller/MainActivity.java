@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
+import edu.cnm.deepdive.dominionandroid.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.service.GoogleSignInService;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
@@ -26,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
   GameViewModel gameViewModel;
   NavController navController;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+//    setContentView(R.layout.activity_main);
+    ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+//    binding.setLifecycleOwner(this);
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));

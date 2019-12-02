@@ -17,55 +17,55 @@
     android:layout_width="match_parent"
     android:background="#615757">
 
-    <TextView
-      android:id="@+id/actions"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toStartOf="@+id/buys"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="1.0"/>
+<!--    <TextView-->
+<!--      android:id="@+id/actions"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:text="@{`Actions:` + Integer.toString(viewModel.myActionsRemaining)}"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toStartOf="@+id/buys"-->
+<!--      app:layout_constraintStart_toStartOf="parent"-->
+<!--      app:layout_constraintTop_toTopOf="parent"-->
+<!--      app:layout_constraintVertical_bias="1.0"/>-->
 
-    <TextView
-      android:id="@+id/buys"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toStartOf="@+id/gold"
-      app:layout_constraintStart_toEndOf="@id/actions"
-      app:layout_constraintTop_toTopOf="parent"
-      android:text= "@{Integer.toString(viewModel.myBuysRemaining)}"/>
+<!--    <TextView-->
+<!--      android:id="@+id/buys"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toStartOf="@+id/gold"-->
+<!--      app:layout_constraintStart_toEndOf="@id/actions"-->
+<!--      app:layout_constraintTop_toTopOf="parent"-->
+<!--      android:text= "@{Integer.toString(viewModel.myBuysRemaining)}"/>-->
 
-    <TextView
-      android:id="@+id/gold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:text="@{Integer.toString(viewModel.myBuyingPower)}"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toTopOf="@id/view_pager"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/buys"
-      app:layout_constraintTop_toTopOf="parent"/>
+<!--    <TextView-->
+<!--      android:id="@+id/gold"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:freezesText="true"-->
+<!--      android:text="@{Integer.toString(viewModel.myBuyingPower)}"-->
+<!--      android:textColor="#FFFFFF"-->
+<!--      android:textSize="24sp"-->
+<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
+<!--      app:layout_constraintEnd_toEndOf="parent"-->
+<!--      app:layout_constraintStart_toEndOf="@id/buys"-->
+<!--      app:layout_constraintTop_toTopOf="parent"/>-->
 
     <androidx.viewpager.widget.ViewPager
       xmlns:tools="http://schemas.android.com/tools"
       android:id="@+id/view_pager"
       android:layout_width="wrap_content"
       android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@id/end_turn"
+      app:layout_constraintBottom_toTopOf="@id/num_cards_in_stack"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/buys"
+      app:layout_constraintTop_toTopOf="parent"
       tools:context=".controller.DoActionFragment"
       android:padding="16dp"/>
 
@@ -110,7 +110,7 @@
       android:id="@+id/num_cards_in_stack"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="# in stack"
+      android:text="# in Stacks"
       android:textSize="24sp"
       android:textAlignment="center"
       android:textColor="#DA0808"

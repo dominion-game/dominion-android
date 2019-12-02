@@ -4,6 +4,7 @@ package edu.cnm.deepdive.dominionandroid.controller;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   ViewPager viewPager;
   ViewPagerAdapter adapter;
   TextView actionsText;
+
 
   //  private String[] imageNames = new String[]{
 //      "copper",
@@ -120,7 +122,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
         break;
     }
-    actionsText.setBackgroundColor(Color.TRANSPARENT);
+//    actionsText.setBackgroundColor(Color.TRANSPARENT);
     //TODO need to implement button functionality for play card
   }
 
@@ -140,6 +142,12 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       //TODO hide ALL other buttons
       //switch fragment button "Select Checkbox" on
       gameViewModel.setShowSelectCard(true);
+      getView().findViewById(R.id.discard_cards).setVisibility(View.VISIBLE);
+      getView().findViewById(R.id.play_card).setVisibility(View.INVISIBLE);
+      getView().findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
+      getView().findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
+
+
     } else {
       gameViewModel.playCard(cardToPlay.getCardName());
     }

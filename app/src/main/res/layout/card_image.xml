@@ -17,8 +17,9 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/fab_margin"
     android:text="Select"
-    android:textSize="48sp"
-    android:visibility="gone"
+    android:textColor="@color/colorAccent"
+    android:textSize="32sp"
+    android:visibility="visible"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"/>
 

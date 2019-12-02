@@ -1,68 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".controller.MainActivity">
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <include
-    android:id="@+id/toolbar"
-    layout="@layout/toolbar"/>
-<!--  <TextView-->
-<!--    android:id="@+id/actions"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:freezesText="true"-->
-<!--    android:textColor="#FFFFFF"-->
-<!--    android:textSize="24sp"-->
-<!--    android:text="@{viewModel.myActionsRemaining}"-->
-<!--    android:background="@color/colorAccent"-->
-<!--    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"-->
-<!--    app:layout_constraintEnd_toStartOf="@+id/buys"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/players_hand"-->
-<!--    app:layout_constraintVertical_bias="1.0"/>-->
-<!--  &lt;!&ndash;    android:text="@{viewModel.myActionsRemaining}"&ndash;&gt;-->
+  <data>
+    <variable
+      name="viewModel"
+      type="edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel"/>
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.MainActivity">
+
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"/>
+    <TextView
+      android:id="@+id/actions"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:freezesText="true"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp"
+      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
+      android:background="@color/colorAccent"
+      app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+      app:layout_constraintEnd_toStartOf="@id/buys"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+    <!--    android:text="@{viewModel.myActionsRemaining}"-->
 
 
-<!--  <TextView-->
-<!--    android:id="@+id/buys"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:freezesText="true"-->
-<!--    android:text="@{viewModel.myBuysRemaining}"-->
-<!--    android:textColor="#FFFFFF"-->
-<!--    android:textSize="24sp"-->
-<!--    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"-->
-<!--    app:layout_constraintEnd_toStartOf="@+id/gold"-->
-<!--    app:layout_constraintStart_toEndOf="@id/actions"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
+    <TextView
+      android:id="@+id/buys"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:freezesText="true"
+      android:text="@{Integer.toString(viewModel.myBuysRemaining)}"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+      app:layout_constraintEnd_toStartOf="@+id/gold"
+      app:layout_constraintStart_toEndOf="@id/actions"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
-<!--  <TextView-->
-<!--    android:id="@+id/gold"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:freezesText="true"-->
-<!--    android:text="@{viewModel.myBuyingPower}"-->
-<!--    android:textColor="#FFFFFF"-->
-<!--    android:textSize="24sp"-->
-<!--    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"-->
-<!--    app:layout_constraintEnd_toEndOf="parent"-->
-<!--    app:layout_constraintStart_toEndOf="@id/buys"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
-  <fragment
-    android:id="@+id/nav_host_fragment"
-    android:name="androidx.navigation.fragment.NavHostFragment"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:defaultNavHost="true"
-    app:navGraph="@navigation/nav_graph" />
-  
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+      android:id="@+id/gold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:freezesText="true"
+      android:text="@{Integer.toString(viewModel.myBuyingPower)}"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/buys"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <fragment
+      android:id="@+id/nav_host_fragment"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:defaultNavHost="true"
+      app:navGraph="@navigation/nav_graph"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
