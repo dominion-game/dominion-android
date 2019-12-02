@@ -32,6 +32,15 @@
     tools:layout="@layout/fragment_do_action">
 
     <action
+      android:id="@+id/action_doActionFragment_to_doActionFragment"
+      app:destination="@id/doActionFragment"
+      app:popEnterAnim="@anim/slide_in_left"
+      app:popExitAnim="@anim/slide_out_right"
+      app:enterAnim="@anim/slide_in_right"
+      app:exitAnim="@anim/slide_out_left"
+      />
+
+    <action
       android:id="@+id/action_doActionFragment_to_turnSummaryFragment"
       app:destination="@id/turnSummaryFragment"
       app:popEnterAnim="@anim/slide_in_left"

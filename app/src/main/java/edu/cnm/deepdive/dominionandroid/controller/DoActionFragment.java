@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -20,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.snackbar.Snackbar;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
@@ -35,6 +37,8 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   GameViewModel gameViewModel;
   ViewPager viewPager;
   TextView actionsText;
+
+  private boolean wasAttacked = false;
 
   private String[] imageNames = new String[]{
       "copper",
@@ -80,10 +84,24 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     navController= Navigation.findNavController(view);
-    view.findViewById(R.id.play_card).setOnClickListener(this);
-    view.findViewById(R.id.end_action).setOnClickListener(this);
-    view.findViewById(R.id.end_turn).setOnClickListener(this);
+
+      view.findViewById(R.id.play_card).setOnClickListener(this);
+      view.findViewById(R.id.end_action).setOnClickListener(this);
+      view.findViewById(R.id.end_turn).setOnClickListener(this);
+      view.findViewById(R.id.discard).setOnClickListener(this);
+
+
     actionsText = view.findViewById(R.id.actions);
+
+    if (wasAttacked) {
+      view.findViewById(R.id.play_card).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.discard).setVisibility(View.VISIBLE);
+      Snackbar.make(view,"discard down to 3 cards",Snackbar.LENGTH_LONG).show();
+    }
+
+
   }
 
   @Override
@@ -107,6 +125,10 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         break;
       case R.id.end_turn:
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
+        break;
+      case R.id.discard:
+        gameViewModel.discardCard(gameViewModel.getCardsInHand().getValue().get(viewPager.getCurrentItem()));
+        navController.navigate(R.id.action_doActionFragment_to_doActionFragment);
         break;
     }
     actionsText.setBackgroundColor(Color.TRANSPARENT);

@@ -100,6 +100,21 @@ public class GameViewModel extends AndroidViewModel {
   }
 
   @SuppressLint("CheckResult")
+  public void discardCard(Card card) {
+    //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
+    //Log.d("Oauth2.0 token", token);
+    pending.add(apiService.discardCard(card.getCardName())
+        .subscribeOn(Schedulers.io())
+        .subscribe(
+            (info) -> {
+              gameStateInfo.postValue(info);
+              processNewGameState();
+            },
+            this.throwable::postValue
+        ));
+  }
+
+  @SuppressLint("CheckResult")
   public void playCard(Card card) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
