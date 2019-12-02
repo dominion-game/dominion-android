@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
@@ -20,14 +24,15 @@ import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 public class MainActivity extends AppCompatActivity {
 
   GameViewModel gameViewModel;
+  NavController navController;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+    navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
     setupViewModel();
   }
 
@@ -61,9 +66,32 @@ public class MainActivity extends AppCompatActivity {
 
   private void setupViewModel() {
     gameViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
-//    getLifecycle().addObserver(gameViewModel);
+    getLifecycle().addObserver(gameViewModel);
+
     // TODO see if this is necessary
 //    gameViewModel.getGameStateInfo().observe(this, this::);
+    gameViewModel.getWhatStateAmIIn().observe(this, (state) -> {
+      switch (state) {
+        case INITIAL:
+          navController.navigate(R.id.action_newGameFragment_to_waiting);
+          break;
+        case PLAYER_1_DISCARDING:
+          navController.navigate(R.id.action_newGameFragment_to_doActionFragment2);
+          break;
+        case ACTING:
+          navController.navigate(R.id.action_waiting_to_doActionFragment);
+          break;
+        case BUYING:
+          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+          break;
+        case ENDING_TURN:
+          navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
+          break;
+        default:
+          navController.navigate(R.id.action_newGameFragment_to_waiting);
+          break;
+      }
+    });
     gameViewModel.getThrowable().observe(this, this::showError);
   }
 

@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.dominionandroid.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +37,23 @@ public class GameStateInfo implements Serializable {
   List<String> playsMadeLastTurnByOtherPlayer;
 
   @Expose
+      @SerializedName("whatState")
   PhaseState whatStateAmIIn;
+
+  boolean showSelectCard;
+
+  public boolean debugging = true;
 
   public List<Card> getCardsInHand() {
     return cardsInHand;
+  }
+
+  public String[] getCardStringsInHand() {
+    String[] cardStrings = new String[cardsInHand.size()];
+    for (int i = 0; i < cardsInHand.size() ; i++) {
+      cardStrings[i] = cardsInHand.get(i).getCardName().toLowerCase();
+    }
+    return cardStrings;
   }
 
   public void setCardsInHand(List<Card> cardsInHand) {
@@ -90,6 +104,15 @@ public class GameStateInfo implements Serializable {
     return stacks;
   }
 
+  public String[] getStackStrings() {
+    String[] stackStrings = new String[stacks.size()];
+    String[] keysStrings = stacks.keySet().toArray(new String[stacks.size()]);
+    for (int i = 0; i < keysStrings.length ; i++) {
+      stackStrings[i] = keysStrings[i].toLowerCase();
+    }
+    return stackStrings;
+  }
+
   public void setStacks(HashMap<String, Integer> stacks) {
     this.stacks = stacks;
   }
@@ -109,6 +132,14 @@ public class GameStateInfo implements Serializable {
 
   public void setWhatStateAmIIn(PhaseState whatStateAmIIn) {
     this.whatStateAmIIn = whatStateAmIIn;
+  }
+
+  public boolean isShowSelectCard() {
+    return showSelectCard;
+  }
+
+  public void setShowSelectCard(boolean showSelectCard) {
+    this.showSelectCard = showSelectCard;
   }
 
   @Override
@@ -134,4 +165,6 @@ public class GameStateInfo implements Serializable {
     gameStateInfoString.append("Current State: " + getWhatStateAmIIn() + "\n");
     return gameStateInfoString.toString();
   }
+
+
 }

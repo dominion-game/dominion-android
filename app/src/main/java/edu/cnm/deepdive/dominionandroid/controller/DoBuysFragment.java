@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +21,7 @@ import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoBuysBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
 import io.reactivex.internal.operators.observable.ObservableNever;
@@ -32,15 +34,16 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
   NavController navController = null;
   private GameViewModel gameViewModel;
 
-  private String[] imageUrls = new String[]{
-      "https://pure-tundra-13659.herokuapp.com/pics/militia",
-      "https://pure-tundra-13659.herokuapp.com/pics/province",
-      "https://pure-tundra-13659.herokuapp.com/pics/silver",
-      "https://pure-tundra-13659.herokuapp.com/pics/moat",
-      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
-  };
-  private ViewPager viewPager;
+//  private String[] imageUrls = new String[]{
+//      "https://pure-tundra-13659.herokuapp.com/pics/militia",
+//      "https://pure-tundra-13659.herokuapp.com/pics/province",
+//      "https://pure-tundra-13659.herokuapp.com/pics/silver",
+//      "https://pure-tundra-13659.herokuapp.com/pics/moat",
+//      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
+//  };
+  private String[] stackStrings;
 
+  private ViewPager viewPager;
   public DoBuysFragment() {
     // Required empty public constructor
   }
@@ -62,8 +65,23 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
     //TODO show number of cards per stack
     //TODO if number of cards for stack is 0, disable buy button, show grayed out
     viewPager = view.findViewById(R.id.view_pager);
-    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageUrls);
-    viewPager.setAdapter(adapter);
+//    ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), stackStrings);
+//    viewPager.setAdapter(adapter);
+
+    final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
+      @Override
+      public void onChanged(GameStateInfo gameStateInfo) {
+        //since we watch gameStateInfo and everyone else does too, we only respond if it is our state
+        if (gameStateInfo.debugging || gameStateInfo.getWhatStateAmIIn().equals(PhaseState.ACTING)) {
+          //reset image names to be from gameStateInfo
+          stackStrings = gameStateInfo.getStackStrings();
+
+          ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), stackStrings, false);
+          viewPager.setAdapter(adapter);
+        }
+      }
+    };
+    gameViewModel.getGameStateInfo().observe(this, gameStateInfoObserver);
 
     return view;
   }

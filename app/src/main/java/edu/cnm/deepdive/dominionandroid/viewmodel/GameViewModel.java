@@ -5,8 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import edu.cnm.deepdive.dominionandroid.model.Card;
@@ -24,21 +27,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import retrofit2.Response;
 
-public class GameViewModel extends AndroidViewModel {
+public class GameViewModel extends AndroidViewModel implements LifecycleObserver {
 
-  private MutableLiveData<List<Card>> cardsInHand;
-  private MutableLiveData<List<Card>> cardsInDiscard;
-  private MutableLiveData<List<Card>> cardsInDrawPile;
-  private MutableLiveData<Integer> myVictoryPoints;
-  private MutableLiveData<Integer> theirVictoryPoints;
-  private MutableLiveData<Integer> myActionsRemaining;
-  private MutableLiveData<Integer> myBuysRemaining;
-  private MutableLiveData<Integer> myBuyingPower;
-  private MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack;
-  private MutableLiveData<HashMap<String, Integer>> stacks;
-  private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer;
-  private MutableLiveData<PhaseState> whatStateAmIIn;
-  //  private GameStateInfo gameStateInfo;
+  private MutableLiveData<List<Card>> cardsInHand = new MutableLiveData<>() ;
+  private MutableLiveData<List<Card>> cardsInDiscard = new MutableLiveData<>();
+  private MutableLiveData<List<Card>> cardsInDrawPile = new MutableLiveData<>();
+  private MutableLiveData<Integer> myVictoryPoints = new MutableLiveData<>();
+  private MutableLiveData<Integer> theirVictoryPoints = new MutableLiveData<>();
+  private MutableLiveData<Integer> myActionsRemaining = new MutableLiveData<>();
+  private MutableLiveData<Integer> myBuysRemaining = new MutableLiveData<>();
+  private MutableLiveData<Integer> myBuyingPower = new MutableLiveData<>();
+  private MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack = new MutableLiveData<>();
+  private MutableLiveData<HashMap<String, Integer>> stacks = new MutableLiveData<>();
+  private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer = new MutableLiveData<>();
+  private MutableLiveData<PhaseState> whatStateAmIIn = new MutableLiveData<>();
   private final MutableLiveData<GameStateInfo> gameStateInfo = new MutableLiveData<>();
   private final DominionApiService apiService = DominionApiService.getInstance();
   private ExecutorService executor;
@@ -56,32 +58,44 @@ public class GameViewModel extends AndroidViewModel {
     executor = Executors.newSingleThreadExecutor();
   }
 
+  @OnLifecycleEvent(Event.ON_STOP)
+  private void clearPending() {
+    pending.clear();
+  }
+
   public void setAccount(GoogleSignInAccount account) {
     this.account.setValue(account);
     getGameStateInfo();
   }
 
+  public void setShowSelectCard(boolean toShow){
+    GameStateInfo info = gameStateInfo.getValue();
+    info.setShowSelectCard(toShow);
+    gameStateInfo.postValue(info);
+  }
 
   public void processNewGameState() {
     GameStateInfo info = gameStateInfo.getValue();
+    if(info == null)
+      return;
     if (info.getCardsInHand() != null) {
-      this.cardsInHand.setValue(info.getCardsInHand());
+      this.cardsInHand.postValue(info.getCardsInHand());
     }
 
     if (info.getPlaysMadeLastTurnByOtherPlayer() != null) {
-      this.playsMadeLastTurnByOtherPlayer.setValue(info.getPlaysMadeLastTurnByOtherPlayer());
+      this.playsMadeLastTurnByOtherPlayer.postValue(info.getPlaysMadeLastTurnByOtherPlayer());
     }
     if (info.getStacks() != null) {
-      this.stacks.setValue(info.getStacks());
+      this.stacks.postValue(info.getStacks());
     }
     if (info.getWhatStateAmIIn() != null) {
-      this.whatStateAmIIn.setValue(info.getWhatStateAmIIn());
+      this.whatStateAmIIn.postValue(info.getWhatStateAmIIn());
     }
-    this.myBuysRemaining.setValue(info.getMyBuysRemaining());
-    this.myActionsRemaining.setValue(info.getMyActionsRemaining());
-    this.myBuyingPower.setValue(info.getMyBuyingPower());
-    this.myVictoryPoints.setValue(info.getMyBuyingPower());
-    this.theirVictoryPoints.setValue(info.getTheirVictoryPoints());
+    this.myBuysRemaining.postValue(info.getMyBuysRemaining());
+    this.myActionsRemaining.postValue(info.getMyActionsRemaining());
+    this.myBuyingPower.postValue(info.getMyBuyingPower());
+    this.myVictoryPoints.postValue(info.getMyBuyingPower());
+    this.theirVictoryPoints.postValue(info.getTheirVictoryPoints());
   }
 
   public void startNewGame() {
@@ -115,10 +129,10 @@ public class GameViewModel extends AndroidViewModel {
   }
 
   @SuppressLint("CheckResult")
-  public void playCard(Card card) {
+  public void playCard(String cardName) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.doAction(card.getCardName())
+    pending.add(apiService.doAction(cardName)
         .subscribeOn(Schedulers.io())
         .subscribe(
             (info) -> {
@@ -130,10 +144,10 @@ public class GameViewModel extends AndroidViewModel {
   }
 
   @SuppressLint("CheckResult")
-  public void playCard(Card card, List<Card> cards) {
+  public void playCard(String cardName, List<String> extraCardNames) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.doAction(card.getCardName(), cards)
+    pending.add(apiService.doAction(cardName, extraCardNames)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -176,26 +190,30 @@ public class GameViewModel extends AndroidViewModel {
             this.throwable::postValue
         ));
   }
+//
+//  public GameStateInfo getGameStateInfo() {
+//    return gameStateInfo();
+//  }
 
-  public GameStateInfo getGameStateInfoObject() {
-    return gameStateInfo.getValue();
+  public MutableLiveData<GameStateInfo> getGameStateInfo() {
+    return gameStateInfo;
   }
 
-    @SuppressLint("CheckResult")
-  public void getGameStateInfo() {
-    //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
-    //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.getGameStateInfo()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            (info) -> {
-              gameStateInfo.postValue(info);
-              processNewGameState();
-            },
-            this.throwable::postValue
-        ));
-  }
+//    @SuppressLint("CheckResult")
+//  public void getGameStateInfo() {
+//    //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
+//    //Log.d("Oauth2.0 token", token);
+//    pending.add(apiService.getGameStateInfo()
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(
+//            (info) -> {
+//              gameStateInfo.postValue(info);
+//              processNewGameState();
+//            },
+//            this.throwable::postValue
+//        ));
+//  }
 
   public void endPhase() {
     GoogleSignInAccount account = this.account.getValue();
@@ -311,7 +329,7 @@ public class GameViewModel extends AndroidViewModel {
     this.numberOfCardsRemainingInEachStack = numberOfCardsRemainingInEachStack;
   }
 
-  public MutableLiveData<List<String>> getPlaysMadeLastTurnByOtherPlayer() {
+  public LiveData<List<String>> getPlaysMadeLastTurnByOtherPlayer() {
     return playsMadeLastTurnByOtherPlayer;
   }
 
@@ -320,7 +338,7 @@ public class GameViewModel extends AndroidViewModel {
     this.playsMadeLastTurnByOtherPlayer = playsMadeLastTurnByOtherPlayer;
   }
 
-  public MutableLiveData<PhaseState> getWhatStateAmIIn() {
+  public LiveData<PhaseState> getWhatStateAmIIn() {
     return whatStateAmIIn;
   }
 
@@ -329,7 +347,7 @@ public class GameViewModel extends AndroidViewModel {
     this.whatStateAmIIn = whatStateAmIIn;
   }
 
-  public MutableLiveData<Throwable> getThrowable() {
+  public LiveData<Throwable> getThrowable() {
     return throwable;
   }
 }
