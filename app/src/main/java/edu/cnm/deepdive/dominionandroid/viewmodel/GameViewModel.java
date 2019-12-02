@@ -41,7 +41,6 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   private MutableLiveData<HashMap<String, Integer>> stacks = new MutableLiveData<>();
   private MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer = new MutableLiveData<>();
   private MutableLiveData<PhaseState> whatStateAmIIn = new MutableLiveData<>();
-  //  private GameStateInfo gameStateInfo;
   private final MutableLiveData<GameStateInfo> gameStateInfo = new MutableLiveData<>();
   private final DominionApiService apiService = DominionApiService.getInstance();
   private ExecutorService executor;

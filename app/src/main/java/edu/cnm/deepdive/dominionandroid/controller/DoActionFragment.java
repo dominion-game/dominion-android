@@ -24,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.Card.CardType;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
@@ -38,7 +39,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   ViewPager viewPager;
   TextView actionsText;
 
-//  private String[] imageNames = new String[]{
+  //  private String[] imageNames = new String[]{
 //      "copper",
 //      "village",
 //      "militia",
@@ -59,23 +60,24 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 
     FragmentDoActionBinding binding;
     binding = DataBindingUtil.inflate(
-        inflater,R.layout.fragment_do_action, container,false);
+        inflater, R.layout.fragment_do_action, container, false);
     binding.setLifecycleOwner(this);
     View view = binding.getRoot();
-    gameViewModel= ViewModelProviders.of(getActivity()).get(GameViewModel.class);
+    gameViewModel = ViewModelProviders.of(getActivity()).get(GameViewModel.class);
     binding.setViewModel(gameViewModel);
 
-    viewPager= binding.viewPager;
+    viewPager = binding.viewPager;
 
-    final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>()  {
+    final Observer<GameStateInfo> gameStateInfoObserver = new Observer<GameStateInfo>() {
       @Override
       public void onChanged(GameStateInfo gameStateInfo) {
         //since we watch gameStateInfo and everyone else does too, we only respond if it is our state
-        if (gameStateInfo.debugging || gameStateInfo.getWhatStateAmIIn().equals(PhaseState.ACTING)) {
+        if (gameStateInfo.debugging || gameStateInfo.getWhatStateAmIIn()
+            .equals(PhaseState.ACTING)) {
           //reset image names to be from gameStateInfo
           imageNames = gameStateInfo.getCardStringsInHand();
 
-          ViewPagerAdapter adapter= new ViewPagerAdapter(getContext(), imageNames);
+          ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), imageNames);
           viewPager.setAdapter(adapter);
 //          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         }
@@ -86,17 +88,10 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     return view;
   }
 
-  void loadCards(){
-    //TODO need to load cards based on players hand...
-    for (int i = 0; i < gameViewModel.getCardsInHand().getValue().size(); i++){
-
-    }
-  }
-
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    navController= Navigation.findNavController(view);
+    navController = Navigation.findNavController(view);
     view.findViewById(R.id.play_card).setOnClickListener(this);
     view.findViewById(R.id.end_action).setOnClickListener(this);
     view.findViewById(R.id.end_turn).setOnClickListener(this);
@@ -105,20 +100,10 @@ public class DoActionFragment extends Fragment implements OnClickListener {
 
   @Override
   public void onClick(View v) {
-    switch (v.getId()){
+    switch (v.getId()) {
       case R.id.play_card:
-        //need to know what you are seeing
-        //TODO see if this actually gets the current card shown
-        int currentCardIndex = viewPager.getCurrentItem();
-        Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(currentCardIndex);
-
-        //TODO if card has "extra" cost, need to have player "select" until done.
-        //then make a card and play it
-        gameViewModel.playCard(cardToPlay);
-        if (gameViewModel.getWhatStateAmIIn().getValue() != PhaseState.ACTING){
-          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
-          break;
-        }
+        playCurrentCard();
+        break;
       case R.id.end_action:
         navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         break;
@@ -130,4 +115,17 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     //TODO need to implement button functionality for play card
   }
 
+  private void playCurrentCard(){
+    //TODO see if this actually gets the current card shown
+    int currentCardIndex = viewPager.getCurrentItem();
+    Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(currentCardIndex);
+    if (cardToPlay.getCardType() == CardType.CELLAR ||
+        cardToPlay.getCardType() == CardType.MINE ||
+        cardToPlay.getCardType() == CardType.REMODEL){
+      //TODO if card has "extra" cost, need to have player "select" until done.
+      //switch fragment button "Select Checkbox" on
+    }
+    //then make a card and play it
+    gameViewModel.playCard(cardToPlay);
+  }
 }

@@ -6,26 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.dominionandroid.R;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
   private Context context;
   private int[] imageIds;
-  private final boolean discarding;
+  private final boolean showSelect;
   private boolean[] selected;
 
   public ViewPagerAdapter(Context context, String[] imageNames) { // , boolean discarding) {
     this.context = context;
-    this.discarding = true; //discarding;
+    this.showSelect = true; //discarding;
     imageIds = new int[imageNames.length];
-    selected= new boolean[imageNames.length];
+    selected = new boolean[imageNames.length];
     Resources res = context.getResources();
     String pkg = context.getPackageName();
     for (int i = 0; i < imageNames.length; i++) {
@@ -43,7 +40,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     return view == object;
   }
 
-
   @NonNull
   @Override
   public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -54,7 +50,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     discardSelection.setChecked(selected[position]);
     discardSelection.setOnCheckedChangeListener(
         (buttonView, isChecked) -> selected[position] = isChecked);
-    discardSelection.setVisibility(discarding ? View.VISIBLE : View.GONE);
+    discardSelection.setVisibility(showSelect ? View.VISIBLE : View.GONE);
     container.addView(layout);
     imageView.setImageResource(imageIds[position]);
 //    Picasso.get()
