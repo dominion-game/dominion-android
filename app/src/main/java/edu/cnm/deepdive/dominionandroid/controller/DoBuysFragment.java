@@ -4,6 +4,7 @@ package edu.cnm.deepdive.dominionandroid.controller;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -18,10 +19,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+import com.google.android.material.snackbar.Snackbar;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoBuysBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
+import edu.cnm.deepdive.dominionandroid.model.Card.CardType;
 import edu.cnm.deepdive.dominionandroid.model.GameStateInfo;
 import edu.cnm.deepdive.dominionandroid.model.PhaseState;
 import edu.cnm.deepdive.dominionandroid.viewmodel.GameViewModel;
@@ -37,15 +40,8 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
 
   NavController navController = null;
   private GameViewModel gameViewModel;
-
-  //  private String[] imageUrls = new String[]{
-//      "https://pure-tundra-13659.herokuapp.com/pics/militia",
-//      "https://pure-tundra-13659.herokuapp.com/pics/province",
-//      "https://pure-tundra-13659.herokuapp.com/pics/silver",
-//      "https://pure-tundra-13659.herokuapp.com/pics/moat",
-//      "https://pure-tundra-13659.herokuapp.com/pics/workshop"
-//  };
   private ViewPager viewPager;
+  private String[] resourceNames;
 
   public DoBuysFragment() {
     // Required empty public constructor
@@ -88,7 +84,7 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
       String[] keys = stacks.keySet().stream()
           .sorted(Comparator.comparing(String::toLowerCase))
           .toArray(String[]::new);
-      String[] resourceNames = Arrays.stream(keys)
+      resourceNames = Arrays.stream(keys)
           .map(String::toLowerCase)
           .toArray(String[]::new);
       ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), resourceNames, false);
@@ -123,25 +119,29 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
   public void onClick(View v) {
     switch (v.getId()) {
       case R.id.buy_card:
-        //TODO see if this actually gets the current stack shown
-        int currentStackIndex = viewPager.getCurrentItem();
-//        Card cardToBuy = new Card();
-//        cardToBuy.setCost();
-        gameViewModel.getStacks().getValue().get(currentStackIndex);
-
-//        gameViewModel.buyCard(cardToBuy);
-        if (gameViewModel.getWhatStateAmIIn().getValue() != PhaseState.ACTING) {
-          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
-          break;
-        }
+        buyCurrentCard();
+        break;
       case R.id.end_turn:
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
         break;
     }
-//    actionsText.setBackgroundColor(Color.TRANSPARENT);
-    //TODO need to implement button functionality for play card
-
     navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
   }
+
+  private void buyCurrentCard() {
+    //TODO see if this actually gets the current card shown
+    String[] namesOfStacks= {"Cellar", "Copper", "Duchy", "Estate", "Gold", "Market", "Merchant",
+        "Militia", "Mine", "Moat", "Province", "Silver", "Smithy", "Trash", "Village", "Workshop"};
+
+    int cardIndexToBuy = viewPager.getCurrentItem();
+    String cardToBuy = namesOfStacks[cardIndexToBuy];
+
+    if (Card.CardType.valueOf(cardToBuy.toUpperCase()).cost() > gameViewModel.getMyBuyingPower().getValue()){
+      Toast.makeText(getContext(), "You do not have enough Gold to buy this Card", Toast.LENGTH_SHORT)
+          .show();
+    } else if (Card.CardType.valueOf(cardToBuy.toUpperCase()).cost() <= gameViewModel.getMyBuyingPower().getValue()){
+    gameViewModel.buyCard(cardToBuy);
+    }
+  }
 }
-//TODO implement "Buy Card" button
+

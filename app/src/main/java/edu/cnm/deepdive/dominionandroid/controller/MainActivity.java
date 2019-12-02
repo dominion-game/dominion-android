@@ -71,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
     return handled;
   }
 
+//  @Override
+//  public void onBackPressed() {
+//    Toast.makeText(this, "There's no turning back...", Toast.LENGTH_SHORT).show();
+//  }
+
   private void setupViewModel() {
     gameViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
     getLifecycle().addObserver(gameViewModel);

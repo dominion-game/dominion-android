@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -42,13 +43,6 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   TextView actionsText;
 
 
-  //  private String[] imageNames = new String[]{
-//      "copper",
-//      "village",
-//      "militia",
-//      "gold",
-//      "workshop"
-//  };
   private String[] imageNames;
   private int cardIndexToPlay;
 
@@ -117,10 +111,10 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         trashCard();
         break;
       case R.id.end_action:
-        navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+        navController.navigate(R.id.doBuysFragment);
         break;
       case R.id.end_turn:
-        navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
+        navController.navigate(R.id.turnSummaryFragment);
         break;
     }
   }
@@ -165,8 +159,6 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       }
     }
     gameViewModel.playCard(cardsInHand.get(cardIndexToPlay).getCardName(), selectedCards);
-    //TODO display "Discard Selected Card(s)" Button
-    //TODO hide ALL other buttons
   }
 
   private void trashCard() {
@@ -181,6 +173,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       }
     }
     if (selectedCards.size() != 1) {
+      Toast.makeText(getContext(), "You may only select one card", Toast.LENGTH_SHORT).show();
       //TODO display YOU MUST SELECT ONLY ONE AND ONLY CARD TO TRASH message
     } else {
       gameViewModel.playCard(cardsInHand.get(cardIndexToPlay).getCardName(), selectedCards);

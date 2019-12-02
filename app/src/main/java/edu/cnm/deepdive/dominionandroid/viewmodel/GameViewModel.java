@@ -145,10 +145,10 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   @SuppressLint("CheckResult")
-  public void buyCard(Card card) {
+  public void buyCard(String cardName) {
     //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
     //Log.d("Oauth2.0 token", token);
-    pending.add(apiService.buyCard(card.getCardName())
+    pending.add(apiService.buyCard(cardName)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -180,7 +180,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
 //    return gameStateInfo();
 //  }
 
-  public MutableLiveData<GameStateInfo> getGameStateInfo() {
+  public LiveData<GameStateInfo> getGameStateInfo() {
     return gameStateInfo;
   }
 
@@ -230,7 +230,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     return stacks;
   }
 
-  public MutableLiveData<List<Card>> getCardsInHand() {
+  public LiveData<List<Card>> getCardsInHand() {
     return cardsInHand;
   }
 
@@ -239,7 +239,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.cardsInHand = cardsInHand;
   }
 
-  public MutableLiveData<List<Card>> getCardsInDiscard() {
+  public LiveData<List<Card>> getCardsInDiscard() {
     return cardsInDiscard;
   }
 
@@ -248,7 +248,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.cardsInDiscard = cardsInDiscard;
   }
 
-  public MutableLiveData<List<Card>> getCardsInDrawPile() {
+  public LiveData<List<Card>> getCardsInDrawPile() {
     return cardsInDrawPile;
   }
 
@@ -257,7 +257,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.cardsInDrawPile = cardsInDrawPile;
   }
 
-  public MutableLiveData<Integer> getMyVictoryPoints() {
+  public LiveData<Integer> getMyVictoryPoints() {
     return myVictoryPoints;
   }
 
@@ -265,7 +265,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.myVictoryPoints = myVictoryPoints;
   }
 
-  public MutableLiveData<Integer> getTheirVictoryPoints() {
+  public LiveData<Integer> getTheirVictoryPoints() {
     return theirVictoryPoints;
   }
 
@@ -278,7 +278,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     return myActionsRemaining;
   }
 
-  public MutableLiveData<Integer> getMyBuysRemaining() {
+  public LiveData<Integer> getMyBuysRemaining() {
     return myBuysRemaining;
   }
 
@@ -286,7 +286,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.myBuysRemaining = myBuysRemaining;
   }
 
-  public MutableLiveData<Integer> getMyBuyingPower() {
+  public LiveData<Integer> getMyBuyingPower() {
     return myBuyingPower;
   }
 
@@ -294,7 +294,7 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.myBuyingPower = myBuyingPower;
   }
 
-  public MutableLiveData<List<Integer>> getNumberOfCardsRemainingInEachStack() {
+  public LiveData<List<Integer>> getNumberOfCardsRemainingInEachStack() {
     return numberOfCardsRemainingInEachStack;
   }
 
