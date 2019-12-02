@@ -14,20 +14,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.MainActivity">
+    tools:context=".controller.MainActivity"
+    android:background="#615757">
 
     <include
       android:id="@+id/toolbar"
       layout="@layout/toolbar"/>
+
     <TextView
       android:id="@+id/actions"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:freezesText="true"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
       android:background="@color/colorAccent"
+      android:freezesText="true"
+      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
+      android:textSize="32sp"
+
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toStartOf="@id/buys"
       app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +44,7 @@
       android:freezesText="true"
       android:text="@{Integer.toString(viewModel.myBuysRemaining)}"
       android:textColor="#FFFFFF"
-      android:textSize="24sp"
+      android:textSize="32sp"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toStartOf="@+id/gold"
       app:layout_constraintStart_toEndOf="@id/actions"
@@ -55,7 +57,7 @@
       android:freezesText="true"
       android:text="@{Integer.toString(viewModel.myBuyingPower)}"
       android:textColor="#FFFFFF"
-      android:textSize="24sp"
+      android:textSize="32sp"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/buys"
@@ -68,7 +70,7 @@
       android:layout_height="0dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/toolbar"
+      app:layout_constraintTop_toBottomOf="@id/buys"
       app:layout_constraintBottom_toBottomOf="parent"
       app:defaultNavHost="true"
       app:navGraph="@navigation/nav_graph"/>
