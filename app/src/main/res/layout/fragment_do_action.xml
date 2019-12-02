@@ -15,49 +15,6 @@
     android:layout_width="match_parent"
     android:background="#615757">
 
-<!--    <TextView-->
-<!--      android:id="@+id/actions"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:freezesText="true"-->
-<!--      android:textColor="#FFFFFF"-->
-<!--      android:textSize="24sp"-->
-<!--      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"-->
-<!--      android:background="@color/colorAccent"-->
-<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
-<!--      app:layout_constraintEnd_toStartOf="@+id/buys"-->
-<!--      app:layout_constraintStart_toStartOf="parent"-->
-<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"-->
-<!--      app:layout_constraintVertical_bias="1.0"/>-->
-<!--&lt;!&ndash;    android:text="@{viewModel.myActionsRemaining}"&ndash;&gt;-->
-
-
-<!--    <TextView-->
-<!--      android:id="@+id/buys"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:freezesText="true"-->
-<!--      android:text="Buys"-->
-<!--      android:textColor="#FFFFFF"-->
-<!--      android:textSize="24sp"-->
-<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
-<!--      app:layout_constraintEnd_toStartOf="@+id/gold"-->
-<!--      app:layout_constraintStart_toEndOf="@id/actions"-->
-<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
-
-<!--    <TextView-->
-<!--      android:id="@+id/gold"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:freezesText="true"-->
-<!--      android:text="Gold"-->
-<!--      android:textColor="#FFFFFF"-->
-<!--      android:textSize="24sp"-->
-<!--      app:layout_constraintBottom_toTopOf="@id/view_pager"-->
-<!--      app:layout_constraintEnd_toEndOf="parent"-->
-<!--      app:layout_constraintStart_toEndOf="@id/buys"-->
-<!--      app:layout_constraintTop_toBottomOf="@id/players_hand"/>-->
-
     <androidx.viewpager.widget.ViewPager
       xmlns:tools="http://schemas.android.com/tools"
       android:id="@+id/view_pager"
@@ -84,7 +41,8 @@
       app:layout_constraintTop_toBottomOf="@id/view_pager"
       app:layout_constraintBottom_toTopOf="@+id/end_action"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"/>
+      app:layout_constraintEnd_toEndOf="parent"
+      android:paddingBottom="16dp"/>
 
 
     <Button
@@ -146,9 +104,11 @@
 
     <Button
       android:id="@+id/discard_cards"
+      android:background="@drawable/red_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Discard Selected Cards"
+      android:text=" Discard Selected Cards "
+      android:textColor="#FFFFFF"
       android:textSize="24sp"
       android:visibility="invisible"
       app:layout_constraintTop_toBottomOf="@id/players_hand"
@@ -156,6 +116,19 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <Button
+      android:id="@+id/trash_cards"
+      android:background="@drawable/red_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text=" Trash Selected Card "
+      android:textColor="#FFFFFF"
+      android:textSize="24sp"
+      android:visibility="invisible"
+      app:layout_constraintTop_toBottomOf="@id/players_hand"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.snackbar.Snackbar;
 import edu.cnm.deepdive.dominionandroid.R;
 import edu.cnm.deepdive.dominionandroid.databinding.FragmentDoActionBinding;
 import edu.cnm.deepdive.dominionandroid.model.Card;
@@ -109,12 +110,12 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       case R.id.play_card:
         playCurrentCard();
         break;
-//      case R.id.discard_selected_cards:
-//        discardCards();
-//        break;
-//      case R.id.trash_selected_card:
-//        trashCard();
-//        break;
+      case R.id.discard_cards:
+        discardCards();
+        break;
+      case R.id.trash_cards:
+        trashCard();
+        break;
       case R.id.end_action:
         navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
         break;
@@ -122,32 +123,32 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         navController.navigate(R.id.action_doActionFragment_to_turnSummaryFragment);
         break;
     }
-//    actionsText.setBackgroundColor(Color.TRANSPARENT);
-    //TODO need to implement button functionality for play card
   }
 
   private void playCurrentCard() {
     //TODO see if this actually gets the current card shown
     cardIndexToPlay = viewPager.getCurrentItem();
     Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(cardIndexToPlay);
-    if (cardToPlay.getCardType() == CardType.CELLAR) {
-      //TODO display "Discard Selected Card(s)" Button
-      //TODO hide ALL other buttons
-      //switch fragment button "Select Checkbox" on
-      gameViewModel.setShowSelectCard(true);
-    } else if (cardToPlay.getCardType() == CardType.MINE ||
-        cardToPlay.getCardType() == CardType.DUCHY || //TODO TAKE OUT DUCHY!!!
-        cardToPlay.getCardType() == CardType.REMODEL) {
-      //TODO display "Trash Selected Card" Button
-      //TODO hide ALL other buttons
+//    if (cardToPlay.getCardType() == CardType.CELLAR)
+    if (cardToPlay.getCardType() == CardType.COPPER){
       //switch fragment button "Select Checkbox" on
       gameViewModel.setShowSelectCard(true);
       getView().findViewById(R.id.discard_cards).setVisibility(View.VISIBLE);
       getView().findViewById(R.id.play_card).setVisibility(View.INVISIBLE);
       getView().findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
       getView().findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
+      Snackbar.make(getView(), "Choose your cards to discard", Snackbar.LENGTH_SHORT).show();
 
-
+    } else if (cardToPlay.getCardType() == CardType.MINE ||
+        cardToPlay.getCardType() == CardType.DUCHY || //TODO TAKE OUT DUCHY!!!
+        cardToPlay.getCardType() == CardType.REMODEL) {
+      //switch fragment button "Select Checkbox" on
+      gameViewModel.setShowSelectCard(true);
+      getView().findViewById(R.id.trash_cards).setVisibility(View.VISIBLE);
+      getView().findViewById(R.id.play_card).setVisibility(View.INVISIBLE);
+      getView().findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
+      getView().findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
+      Snackbar.make(getView(), "Choose a card to Trash", Snackbar.LENGTH_SHORT).show();
     } else {
       gameViewModel.playCard(cardToPlay.getCardName());
     }

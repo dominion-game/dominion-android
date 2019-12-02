@@ -37,10 +37,10 @@ public class WaitingFragment extends Fragment {
       @Override
       public void onChanged(GameStateInfo gameStateInfo) {
         if (gameStateInfo.getWhatStateAmIIn().equals(PhaseState.INITIAL)) {
-          navController.navigate(R.id.action_newGameFragment_to_waiting);
+//          navController.navigate(R.id.action_newGameFragment_to_waiting);
         }
 //                if (gameStateInfo.getWhatStateAmIIn() == PhaseState.INITIAL || gameStateInfo.getWhatStateAmIIn() == PhaseState.ACTING)
-        navController.navigate(R.id.action_newGameFragment_to_waiting);
+//        navController.navigate(R.id.action_newGameFragment_to_waiting);
 //                navController.navigate(R.id.action_newGameFragment_to_doActionFragment);
       }
     };

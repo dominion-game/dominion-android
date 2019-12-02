@@ -226,13 +226,8 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
 
-  public MutableLiveData<HashMap<String, Integer>> getStacks() {
+  public LiveData<HashMap<String, Integer>> getStacks() {
     return stacks;
-  }
-
-  public void setStacks(
-      MutableLiveData<HashMap<String, Integer>> stacks) {
-    this.stacks = stacks;
   }
 
   public MutableLiveData<List<Card>> getCardsInHand() {
@@ -279,14 +274,8 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     this.theirVictoryPoints = theirVictoryPoints;
   }
 
-  public MutableLiveData<Integer> getMyActionsRemaining() {
+  public LiveData<Integer> getMyActionsRemaining() {
     return myActionsRemaining;
-  }
-
-  public void setMyActionsRemaining(
-      MutableLiveData<Integer> myActionsRemaining) {
-    this.myActionsRemaining = new MutableLiveData<Integer>();
-    this.myActionsRemaining.setValue(myActionsRemaining.getValue());
   }
 
   public MutableLiveData<Integer> getMyBuysRemaining() {

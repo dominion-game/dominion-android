@@ -11,10 +11,7 @@
     android:label="fragment_new_game"
     tools:layout="@layout/fragment_new_game">
     <action
-      android:id="@+id/action_newGameFragment_to_waiting"
-      app:destination="@id/waiting"/>
-    <action
-      android:id="@+id/action_newGameFragment_to_doActionFragment2"
+      android:id="@+id/action_newGameFragment_to_doActionFragment"
       app:destination="@id/doActionFragment"/>
   </fragment>
 

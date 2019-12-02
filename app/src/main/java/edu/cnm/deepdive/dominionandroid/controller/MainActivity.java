@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.dominionandroid.controller;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,13 +33,14 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setupViewModel();
 //    setContentView(R.layout.activity_main);
     ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-//    binding.setLifecycleOwner(this);
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
-    setupViewModel();
+    binding.setLifecycleOwner(this);
+    binding.setViewModel(gameViewModel);
   }
 
   @Override
@@ -77,26 +79,28 @@ public class MainActivity extends AppCompatActivity {
 //    gameViewModel.getGameStateInfo().observe(this, this::);
     gameViewModel.getWhatStateAmIIn().observe(this, (state) -> {
       switch (state) {
-        case INITIAL:
-          navController.navigate(R.id.action_newGameFragment_to_waiting);
-          break;
+//        case INITIAL:
+//          navController.navigate(R.id.action_newGameFragment_to_waiting);
+//          break;
         case PLAYER_1_DISCARDING:
-          navController.navigate(R.id.action_newGameFragment_to_doActionFragment2);
+          navController.navigate(R.id.doActionFragment);
           break;
         case ACTING:
-          navController.navigate(R.id.action_waiting_to_doActionFragment);
+          navController.navigate(R.id.doActionFragment);
           break;
         case BUYING:
-          navController.navigate(R.id.action_doActionFragment_to_doBuysFragment);
+          navController.navigate(R.id.doBuysFragment);
           break;
         case ENDING_TURN:
-          navController.navigate(R.id.action_doBuysFragment_to_turnSummaryFragment);
+          navController.navigate(R.id.turnSummaryFragment);
           break;
         default:
-          navController.navigate(R.id.action_newGameFragment_to_waiting);
+          navController.navigate(R.id.doActionFragment);
           break;
       }
     });
+    gameViewModel.getMyActionsRemaining().observe(this, (numCards) -> Log.d(getClass().getSimpleName(),
+        String.format("Actions remaining = %d", numCards)));
     gameViewModel.getThrowable().observe(this, this::showError);
   }
 

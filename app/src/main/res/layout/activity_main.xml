@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout
-  xmlns:android="http://schemas.android.com/apk/res/android">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
     <variable
@@ -10,8 +12,6 @@
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.MainActivity"
@@ -25,11 +25,10 @@
       android:id="@+id/actions"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@color/colorAccent"
       android:freezesText="true"
-      android:text="@{Integer.toString(viewModel.myActionsRemaining)}"
-      android:textSize="32sp"
-
+      android:text="@{`Actions: ` + Integer.toString(viewModel.myActionsRemaining)}"
+      android:textSize="24sp"
+      android:textColor="#FFFFFF"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toStartOf="@id/buys"
       app:layout_constraintStart_toStartOf="parent"
@@ -42,9 +41,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:freezesText="true"
-      android:text="@{Integer.toString(viewModel.myBuysRemaining)}"
+      android:text="@{`Buys: ` + Integer.toString(viewModel.myBuysRemaining)}"
       android:textColor="#FFFFFF"
-      android:textSize="32sp"
+      android:textSize="24sp"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toStartOf="@+id/gold"
       app:layout_constraintStart_toEndOf="@id/actions"
@@ -55,9 +54,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:freezesText="true"
-      android:text="@{Integer.toString(viewModel.myBuyingPower)}"
+      android:text="@{`Gold: ` + Integer.toString(viewModel.myBuyingPower)}"
       android:textColor="#FFFFFF"
-      android:textSize="32sp"
+      android:textSize="24sp"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/buys"

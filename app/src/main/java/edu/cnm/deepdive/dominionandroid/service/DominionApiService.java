@@ -8,6 +8,9 @@
     import io.reactivex.Single;
     import java.util.List;
     import java.util.Optional;
+    import okhttp3.OkHttpClient;
+    import okhttp3.logging.HttpLoggingInterceptor;
+    import okhttp3.logging.HttpLoggingInterceptor.Level;
     import retrofit2.Call;
     import retrofit2.Response;
     import retrofit2.Retrofit;
@@ -53,7 +56,11 @@ public interface DominionApiService {
     private static final DominionApiService INSTANCE;
 
     static {
-      // TODO Investigate logging interceptor issues.
+      HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+      interceptor.setLevel(Level.BODY);
+      OkHttpClient client = new OkHttpClient.Builder()
+          .addInterceptor(interceptor)
+          .build();
       Gson gson = new GsonBuilder()
           .excludeFieldsWithoutExposeAnnotation()
           .create();
@@ -61,6 +68,7 @@ public interface DominionApiService {
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create(gson))
           .baseUrl("https://pure-tundra-13659.herokuapp.com")
+          .client(client)
           .build();
       INSTANCE = retrofit.create(DominionApiService.class);
     }
