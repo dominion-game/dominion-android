@@ -11,7 +11,7 @@ public class Card {
   @Expose
   private String cardName;
 
-//  public Card(String cardName){
+  //  public Card(String cardName){
 //    //TODO need to know about cardType... probably better to make an enum matching server
 //    //should have costa
 //    switch (cardName){
@@ -46,11 +46,11 @@ public class Card {
 
   @Override
   public String toString() {
-    return "CardType: " + cardType + ", Cost: " + cost  + ", CardName: " + cardName;
+    return "CardType: " + cardType + ", Cost: " + cost + ", CardName: " + cardName;
   }
 
   public enum CardType {
-    COPPER{
+    COPPER {
       @Override
       public int cost() {
         return 0;
@@ -67,7 +67,7 @@ public class Card {
       }
     },
 
-    SILVER{
+    SILVER {
       @Override
       public int cost() {
         return 3;
@@ -84,7 +84,7 @@ public class Card {
       }
     },
 
-    GOLD{
+    GOLD {
       @Override
       public int cost() {
         return 6;
@@ -101,7 +101,7 @@ public class Card {
       }
     },
 
-    ESTATE{
+    ESTATE {
       @Override
       public int cost() {
         return 2;
@@ -118,7 +118,7 @@ public class Card {
       }
     },
 
-    DUCHY{
+    DUCHY {
       @Override
       public int cost() {
         return 5;
@@ -135,7 +135,7 @@ public class Card {
       }
     },
 
-    PROVINCE{
+    PROVINCE {
       @Override
       public int cost() {
         return 8;
@@ -152,7 +152,7 @@ public class Card {
       }
     },
 
-    CELLAR{
+    CELLAR {
       @Override
       public int cost() {
         return 2;
@@ -169,7 +169,7 @@ public class Card {
       }
     },
 
-    MOAT{
+    MOAT {
       @Override
       public int cost() {
         return 2;
@@ -186,7 +186,7 @@ public class Card {
       }
     },
 
-    MERCHANT{
+    MERCHANT {
       @Override
       public int cost() {
         return 3;
@@ -203,7 +203,7 @@ public class Card {
       }
     },
 
-    VILLAGE{
+    VILLAGE {
       @Override
       public int cost() {
         return 3;
@@ -220,7 +220,7 @@ public class Card {
       }
     },
 
-    WORKSHOP{
+    WORKSHOP {
       @Override
       public int cost() {
         return 3;
@@ -237,7 +237,7 @@ public class Card {
       }
     },
 
-    SMITHY{
+    SMITHY {
       @Override
       public int cost() {
         return 4;
@@ -254,7 +254,7 @@ public class Card {
       }
     },
 
-    REMODEL{
+    REMODEL {
       @Override
       public int cost() {
         return 4;
@@ -271,7 +271,7 @@ public class Card {
       }
     },
 
-    MILITIA{
+    MILITIA {
       @Override
       public int cost() {
         return 4;
@@ -288,7 +288,7 @@ public class Card {
       }
     },
 
-    MARKET{
+    MARKET {
       @Override
       public int cost() {
         return 5;
@@ -305,7 +305,7 @@ public class Card {
       }
     },
 
-    MINE{
+    MINE {
       @Override
       public int cost() {
         return 5;
@@ -322,7 +322,7 @@ public class Card {
       }
     },
 
-    TRASH{
+    TRASH {
       @Override
       public int cost() {
         return 0;
@@ -340,16 +340,9 @@ public class Card {
     };
 
     public abstract int cost();
+
     public abstract boolean requiresAdditionalCard();
+
     public abstract boolean requiresMultipleCards();
-  }
-
-
-  public String getCardName() {
-    return cardName;
-  }
-
-  public void setCardName(String cardName) {
-    this.cardName = cardName;
   }
 }

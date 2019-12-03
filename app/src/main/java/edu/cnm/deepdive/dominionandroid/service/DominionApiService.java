@@ -42,7 +42,7 @@ public interface DominionApiService {
   Single<GameStateInfo> buyCard(@Path ("cardname") String cardName);
 
   @POST ("/plays/{cardname}/buy")
-  Single<GameStateInfo> buyCard(@Path ("cardname") String cardName, @Body List<Card> cards);
+  Single<GameStateInfo> buyCard(@Path ("cardname") String cardName, @Body List<String> cards);
 
   @POST("/games/endphase")
   Single<GameStateInfo> endPhase();

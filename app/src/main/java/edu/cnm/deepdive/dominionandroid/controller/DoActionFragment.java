@@ -107,8 +107,6 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       view.findViewById(R.id.discard).setVisibility(View.VISIBLE);
       Snackbar.make(view,"discard down to 3 cards",Snackbar.LENGTH_SHORT).show();
     }
-
-
   }
 
   @Override
@@ -141,7 +139,8 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     cardIndexToPlay = viewPager.getCurrentItem();
     Card cardToPlay = gameViewModel.getCardsInHand().getValue().get(cardIndexToPlay);
 //    if (cardToPlay.getCardType() == CardType.CELLAR)
-    if (cardToPlay.getCardType() == CardType.COPPER){
+
+    if (cardToPlay.getCardType() == CardType.COPPER){ //FIXME remove Copper
       //switch fragment button "Select Checkbox" on
       gameViewModel.setShowSelectCard(true);
       getView().findViewById(R.id.discard_cards).setVisibility(View.VISIBLE);
@@ -151,10 +150,8 @@ public class DoActionFragment extends Fragment implements OnClickListener {
       Snackbar.make(getView(), "Choose your cards to discard", Snackbar.LENGTH_SHORT).show();
 
     } else if (cardToPlay.getCardType() == CardType.MINE ||
-        cardToPlay.getCardType() == CardType.DUCHY || //TODO TAKE OUT DUCHY!!!
+        cardToPlay.getCardType() == CardType.DUCHY || //FIXME Remove DUCHY!!!
         cardToPlay.getCardType() == CardType.REMODEL) {
-      //TODO display "Trash Selected Card" Button
-      //TODO hide ALL other buttons
       //switch fragment button "Select Checkbox" on
       gameViewModel.setShowSelectCard(true);
       getView().findViewById(R.id.trash_cards).setVisibility(View.VISIBLE);
