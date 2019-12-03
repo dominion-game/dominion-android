@@ -33,8 +33,6 @@
       app:layout_constraintEnd_toStartOf="@id/buys"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/toolbar"/>
-    <!--    android:text="@{viewModel.myActionsRemaining}"-->
-
 
     <TextView
       android:id="@+id/buys"
@@ -58,8 +56,21 @@
       android:textColor="#FFFFFF"
       android:textSize="24sp"
       app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/victory_points"
       app:layout_constraintStart_toEndOf="@id/buys"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <TextView
+      android:id="@+id/victory_points"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:freezesText="true"
+      android:text="@{`Victory Points: ` + Integer.toString(viewModel.myVictoryPoints)}"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/gold"
       app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <fragment

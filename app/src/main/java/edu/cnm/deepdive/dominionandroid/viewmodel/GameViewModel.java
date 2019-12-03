@@ -189,30 +189,10 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
             this.throwable::postValue
         ));
   }
-//
-//  public GameStateInfo getGameStateInfo() {
-//    return gameStateInfo();
-//  }
 
   public LiveData<GameStateInfo> getGameStateInfo() {
     return gameStateInfo;
   }
-
-//    @SuppressLint("CheckResult")
-//  public void getGameStateInfo() {
-//    //String token = getApplication().getString(R.string.oauth_header, account.getIdToken());
-//    //Log.d("Oauth2.0 token", token);
-//    pending.add(apiService.getGameStateInfo()
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-//        .subscribe(
-//            (info) -> {
-//              gameStateInfo.postValue(info);
-//              processNewGameState();
-//            },
-//            this.throwable::postValue
-//        ));
-//  }
 
   public void endPhase() {
     GoogleSignInAccount account = this.account.getValue();
@@ -248,44 +228,20 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     return cardsInHand;
   }
 
-  public void setCardsInHand(
-      MutableLiveData<List<Card>> cardsInHand) {
-    this.cardsInHand = cardsInHand;
-  }
-
   public LiveData<List<Card>> getCardsInDiscard() {
     return cardsInDiscard;
-  }
-
-  public void setCardsInDiscard(
-      MutableLiveData<List<Card>> cardsInDiscard) {
-    this.cardsInDiscard = cardsInDiscard;
   }
 
   public LiveData<List<Card>> getCardsInDrawPile() {
     return cardsInDrawPile;
   }
 
-  public void setCardsInDrawPile(
-      MutableLiveData<List<Card>> cardsInDrawPile) {
-    this.cardsInDrawPile = cardsInDrawPile;
-  }
-
   public LiveData<Integer> getMyVictoryPoints() {
     return myVictoryPoints;
   }
 
-  public void setMyVictoryPoints(MutableLiveData<Integer> myVictoryPoints) {
-    this.myVictoryPoints = myVictoryPoints;
-  }
-
   public LiveData<Integer> getTheirVictoryPoints() {
     return theirVictoryPoints;
-  }
-
-  public void setTheirVictoryPoints(
-      MutableLiveData<Integer> theirVictoryPoints) {
-    this.theirVictoryPoints = theirVictoryPoints;
   }
 
   public LiveData<Integer> getMyActionsRemaining() {
@@ -296,43 +252,20 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
     return myBuysRemaining;
   }
 
-  public void setMyBuysRemaining(MutableLiveData<Integer> myBuysRemaining) {
-    this.myBuysRemaining = myBuysRemaining;
-  }
-
   public LiveData<Integer> getMyBuyingPower() {
     return myBuyingPower;
-  }
-
-  public void setMyBuyingPower(MutableLiveData<Integer> myBuyingPower) {
-    this.myBuyingPower = myBuyingPower;
   }
 
   public LiveData<List<Integer>> getNumberOfCardsRemainingInEachStack() {
     return numberOfCardsRemainingInEachStack;
   }
 
-  public void setNumberOfCardsRemainingInEachStack(
-      MutableLiveData<List<Integer>> numberOfCardsRemainingInEachStack) {
-    this.numberOfCardsRemainingInEachStack = numberOfCardsRemainingInEachStack;
-  }
-
   public LiveData<List<String>> getPlaysMadeLastTurnByOtherPlayer() {
     return playsMadeLastTurnByOtherPlayer;
   }
 
-  public void setPlaysMadeLastTurnByOtherPlayer(
-      MutableLiveData<List<String>> playsMadeLastTurnByOtherPlayer) {
-    this.playsMadeLastTurnByOtherPlayer = playsMadeLastTurnByOtherPlayer;
-  }
-
   public LiveData<PhaseState> getWhatStateAmIIn() {
     return whatStateAmIIn;
-  }
-
-  public void setWhatStateAmIIn(
-      MutableLiveData<PhaseState> whatStateAmIIn) {
-    this.whatStateAmIIn = whatStateAmIIn;
   }
 
   public LiveData<Throwable> getThrowable() {
