@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
 
   @Override
+  public void onBackPressed() {
+    //super.onBackPressed();
+    Toast.makeText(getApplicationContext(),"THERE'S NO TURNING BACK!!!!!",Toast.LENGTH_LONG).show();
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setupViewModel();

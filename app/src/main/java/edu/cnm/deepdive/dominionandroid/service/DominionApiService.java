@@ -47,6 +47,9 @@ public interface DominionApiService {
   @POST("/games/endphase")
   Single<GameStateInfo> endPhase();
 
+  @POST("/discard/{cardname}")
+  Single<GameStateInfo> discardCard(@Path ("cardname") String cardName);
+
   static DominionApiService getInstance() {
     return InstanceHolder.INSTANCE;
   }

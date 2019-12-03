@@ -42,7 +42,7 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   ViewPagerAdapter adapter;
   TextView actionsText;
 
-
+  private boolean wasAttacked = false;
   private String[] imageNames;
   private int cardIndexToPlay;
 
@@ -92,10 +92,23 @@ public class DoActionFragment extends Fragment implements OnClickListener {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     navController = Navigation.findNavController(view);
-    view.findViewById(R.id.play_card).setOnClickListener(this);
-    view.findViewById(R.id.end_action).setOnClickListener(this);
-    view.findViewById(R.id.end_turn).setOnClickListener(this);
+
+      view.findViewById(R.id.play_card).setOnClickListener(this);
+      view.findViewById(R.id.end_action).setOnClickListener(this);
+      view.findViewById(R.id.end_turn).setOnClickListener(this);
+      view.findViewById(R.id.discard).setOnClickListener(this);
+
     actionsText = view.findViewById(R.id.actions);
+
+    if (wasAttacked) {
+      view.findViewById(R.id.play_card).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.end_action).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.end_turn).setVisibility(View.INVISIBLE);
+      view.findViewById(R.id.discard).setVisibility(View.VISIBLE);
+      Snackbar.make(view,"discard down to 3 cards",Snackbar.LENGTH_SHORT).show();
+    }
+
+
   }
 
   @Override
@@ -115,6 +128,10 @@ public class DoActionFragment extends Fragment implements OnClickListener {
         break;
       case R.id.end_turn:
         navController.navigate(R.id.turnSummaryFragment);
+        break;
+      case R.id.discard:
+        gameViewModel.discardCard(gameViewModel.getCardsInHand().getValue().get(viewPager.getCurrentItem()));
+        navController.navigate(R.id.action_doActionFragment_to_doActionFragment);
         break;
     }
   }
@@ -136,6 +153,8 @@ public class DoActionFragment extends Fragment implements OnClickListener {
     } else if (cardToPlay.getCardType() == CardType.MINE ||
         cardToPlay.getCardType() == CardType.DUCHY || //TODO TAKE OUT DUCHY!!!
         cardToPlay.getCardType() == CardType.REMODEL) {
+      //TODO display "Trash Selected Card" Button
+      //TODO hide ALL other buttons
       //switch fragment button "Select Checkbox" on
       gameViewModel.setShowSelectCard(true);
       getView().findViewById(R.id.trash_cards).setVisibility(View.VISIBLE);

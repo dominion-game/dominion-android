@@ -144,4 +144,3 @@ public class DoBuysFragment extends Fragment implements OnClickListener {
     }
   }
 }
-

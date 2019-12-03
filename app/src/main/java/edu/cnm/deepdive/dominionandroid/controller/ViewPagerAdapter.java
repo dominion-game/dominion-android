@@ -46,11 +46,11 @@ public class ViewPagerAdapter extends PagerAdapter {
     View layout = LayoutInflater.from(context)
         .inflate(R.layout.card_image, container, false);
     ImageView imageView = layout.findViewById(R.id.card_image);
-    CheckBox discardSelection = layout.findViewById(R.id.discard_selection);
-    discardSelection.setChecked(selected[position]);
-    discardSelection.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> selected[position] = isChecked);
-    discardSelection.setVisibility(showSelect ? View.VISIBLE : View.GONE);
+    //CheckBox discardSelection = layout.findViewById(R.id.discard_selection);
+//    discardSelection.setChecked(selected[position]);
+//    discardSelection.setOnCheckedChangeListener(
+//        (buttonView, isChecked) -> selected[position] = isChecked);
+//    discardSelection.setVisibility(showSelect ? View.VISIBLE : View.GONE);
     container.addView(layout);
     imageView.setImageResource(imageIds[position]);
 //    Picasso.get()
