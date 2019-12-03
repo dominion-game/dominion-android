@@ -50,7 +50,6 @@ public class GameViewModel extends AndroidViewModel implements LifecycleObserver
       new MutableLiveData<>();
   private final MutableLiveData<Throwable> throwable = new MutableLiveData<>();
 
-
   public GameViewModel(@NonNull Application application) {
     super(application);
     context = application.getApplicationContext();

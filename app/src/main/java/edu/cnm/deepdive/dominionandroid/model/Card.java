@@ -345,4 +345,11 @@ public class Card {
   }
 
 
+  public String getCardName() {
+    return cardName;
+  }
+
+  public void setCardName(String cardName) {
+    this.cardName = cardName;
+  }
 }
